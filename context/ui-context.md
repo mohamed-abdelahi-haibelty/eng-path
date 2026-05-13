@@ -20,16 +20,16 @@ All colors are defined as CSS custom properties in `globals.css` and mapped to T
 | Secondary text        | `--text-secondary`        | `#4b5563`                   |
 | Muted text            | `--text-muted`            | `#9ca3af`                   |
 | Faint text            | `--text-faint`            | `#d1d5db`                   |
-| Brand accent          | `--accent-primary`        | `#8fad88` (sage green)      |
-| Brand accent dark     | `--accent-primary-dark`   | `#6e8e67`                   |
-| Brand dim             | `--accent-primary-dim`    | `rgba(143, 173, 136, 0.14)` |
-| Secondary accent      | `--accent-secondary`      | `#ffa07a` (light salmon)    |
-| Secondary accent dark | `--accent-secondary-dark` | `#e8845a`                   |
-| Secondary dim         | `--accent-secondary-dim`  | `rgba(255, 160, 122, 0.14)` |
+| Brand accent          | `--accent-primary`        | `#f7a5a5` (soft rose)       |
+| Brand accent dark     | `--accent-primary-dark`   | `#d97878`                   |
+| Brand dim             | `--accent-primary-dim`    | `rgba(247, 165, 165, 0.14)` |
+| Secondary accent      | `--accent-secondary`      | `#8fad88` (sage green)      |
+| Secondary accent dark | `--accent-secondary-dark` | `#6e8e67`                   |
+| Secondary dim         | `--accent-secondary-dim`  | `rgba(143, 173, 136, 0.14)` |
 | Card background       | `--bg-card`               | `#ffffff`                   |
 | Card foreground       | `--text-card`             | `#1f2937`                   |
 | Error                 | `--state-error`           | `#ef4444`                   |
-| Success               | `--state-success`         | `#8fad88`                   |
+| Success               | `--state-success`         | `#f7a5a5`                   |
 | Warning               | `--state-warning`         | `#fbbf24`                   |
 
 Tailwind utility names map to these variables. Use `bg-base`, `bg-surface`, `bg-card`, `text-primary`, `text-muted`, `border-default`, `text-brand`, `bg-accent-dim`, `text-accent-secondary`, etc.
@@ -83,18 +83,18 @@ Each of the six learning modules has a fixed accent pair used on module cards an
 | Grammar   | `#8fad88` (green)  | `rgba(143, 173, 136, 0.12)` |
 | Reading   | `#60a5fa` (blue)   | `rgba(96, 165, 250, 0.12)`  |
 | Listening | `#a78bfa` (violet) | `rgba(167, 139, 250, 0.12)` |
-| Writing   | `#ffa07a` (salmon) | `rgba(255, 160, 122, 0.12)` |
+| Writing   | `#f7a5a5` (rose)   | `rgba(247, 165, 165, 0.12)` |
 | Speaking  | `#f472b6` (pink)   | `rgba(244, 114, 182, 0.12)` |
 | Review    | `#fbbf24` (amber)  | `rgba(251, 191, 36, 0.12)`  |
 
 ## Cards and Surfaces
 
-Cards use `--bg-card` (`#ffffff`) with a `1px` border in `--border-default` and a subtle box shadow (`shadow-sm`). No card should use a colored or tinted background unless it is a status/highlight card. Hover states on interactive cards lift slightly with `shadow-md` and a `2px` border color shift to `--border-subtle`. No shadow on surfaces that sit flat against `--bg-base`.
+Cards use `--bg-card` (`#ffffff`) with a `2px` border in `--border-default` and a `4px` bottom border in `--border-subtle` for a Duolingo-style depth effect. Corners use `rounded-2xl`. No card should use a colored or tinted background unless it is a status/highlight card. No box shadows — depth is conveyed through the thick bottom border only.
 
 ## Buttons
 
-- **Primary**: Background `--accent-primary`, text white, `rounded-xl`, `font-semibold`. Hover: `--accent-primary-dark`. No shadow.
-- **Secondary**: Background `--accent-secondary`, text white, `rounded-xl`, `font-semibold`. Hover: `--accent-secondary-dark`.
+- **Primary**: Background `--accent-primary` (`#f7a5a5` rose), text dark (`#1f2937`), `rounded-xl`, `font-bold`, thick `border-b-4` in `--accent-primary-dark` for depth. Active: `translate-y-[3px]` press effect.
+- **Secondary**: Background `--accent-secondary` (`#8fad88` sage green), text white, `rounded-xl`, `font-bold`, thick `border-b-4` in `--accent-secondary-dark` for depth. Active: press effect.
 - **Outline**: Transparent background, `1px` border `--border-default`, text `--text-primary`. Hover: `bg-subtle`.
 - **Ghost**: No border, no background. Text `--text-secondary`. Hover: `bg-subtle`.
 - **Destructive**: Background `--state-error`, text white.

@@ -13,9 +13,9 @@
   --color-card-foreground: #1f2937;
   --color-popover: #ffffff;
   --color-popover-foreground: #1f2937;
-  --color-primary: #8fad88;
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #ffa07a;
+  --color-primary: #f7a5a5;
+  --color-primary-foreground: #1f2937;
+  --color-secondary: #8fad88;
   --color-secondary-foreground: #ffffff;
   --color-muted: #f0f0eb;
   --color-muted-foreground: #9ca3af;
@@ -24,21 +24,21 @@
   --color-destructive: #ef4444;
   --color-border: #e2e2db;
   --color-input: #e2e2db;
-  --color-ring: #8fad88;
+  --color-ring: #f7a5a5;
 
   /* Design system supplemental tokens */
   --color-base: #f4f4f0;
   --color-surface: #ffffff;
   --color-elevated: #fafaf8;
   --color-subtle: #f0f0eb;
-  --color-brand: #8fad88;
-  --color-brand-dark: #6e8e67;
-  --color-accent-dim: rgba(143, 173, 136, 0.14);
-  --color-accent-salmon: #ffa07a;
-  --color-accent-salmon-dark: #e8845a;
-  --color-accent-salmon-dim: rgba(255, 160, 122, 0.14);
+  --color-brand: #f7a5a5;
+  --color-brand-dark: #d97878;
+  --color-accent-dim: rgba(247, 165, 165, 0.14);
+  --color-accent-salmon: #8fad88;
+  --color-accent-salmon-dark: #6e8e67;
+  --color-accent-salmon-dim: rgba(143, 173, 136, 0.14);
   --color-state-error: #ef4444;
-  --color-state-success: #8fad88;
+  --color-state-success: #f7a5a5;
   --color-state-warning: #fbbf24;
 
   /* Sidebar Tailwind color tokens */
@@ -47,7 +47,7 @@
   --color-sidebar-accent: #f0f0eb;
   --color-sidebar-accent-foreground: #1f2937;
   --color-sidebar-border: #e2e2db;
-  --color-sidebar-ring: #8fad88;
+  --color-sidebar-ring: #f7a5a5;
 }
 
 :root {
@@ -62,16 +62,16 @@
   --text-secondary: #4b5563;
   --text-muted: #9ca3af;
   --text-faint: #d1d5db;
-  --accent-primary: #8fad88;
-  --accent-primary-dark: #6e8e67;
-  --accent-primary-dim: rgba(143, 173, 136, 0.14);
-  --accent-secondary: #ffa07a;
-  --accent-secondary-dark: #e8845a;
-  --accent-secondary-dim: rgba(255, 160, 122, 0.14);
+  --accent-primary: #f7a5a5;
+  --accent-primary-dark: #d97878;
+  --accent-primary-dim: rgba(247, 165, 165, 0.14);
+  --accent-secondary: #8fad88;
+  --accent-secondary-dark: #6e8e67;
+  --accent-secondary-dim: rgba(143, 173, 136, 0.14);
   --bg-card: #ffffff;
   --text-card: #1f2937;
   --state-error: #ef4444;
-  --state-success: #8fad88;
+  --state-success: #f7a5a5;
   --state-warning: #fbbf24;
 
   /* Sidebar CSS variables (consumed directly by sidebar.tsx) */
@@ -106,23 +106,53 @@
 */
 @layer utilities {
   /* Text */
-  .text-primary          { color: var(--text-primary); }
-  .text-secondary        { color: var(--text-secondary); }
-  .text-muted            { color: var(--text-muted); }
-  .text-faint            { color: var(--text-faint); }
-  .text-brand            { color: var(--accent-primary); }
-  .text-brand-dark       { color: var(--accent-primary-dark); }
-  .text-accent-secondary { color: var(--accent-secondary); }
-  .text-accent-secondary-dark { color: var(--accent-secondary-dark); }
+  .text-primary {
+    color: var(--text-primary);
+  }
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+  .text-muted {
+    color: var(--text-muted);
+  }
+  .text-faint {
+    color: var(--text-faint);
+  }
+  .text-brand {
+    color: var(--accent-primary);
+  }
+  .text-brand-dark {
+    color: var(--accent-primary-dark);
+  }
+  .text-accent-secondary {
+    color: var(--accent-secondary);
+  }
+  .text-accent-secondary-dark {
+    color: var(--accent-secondary-dark);
+  }
 
   /* Backgrounds */
-  .bg-base         { background-color: var(--bg-base); }
-  .bg-surface      { background-color: var(--bg-surface); }
-  .bg-elevated     { background-color: var(--bg-elevated); }
-  .bg-accent-dim   { background-color: var(--accent-primary-dim); }
-  .bg-accent-secondary-dim { background-color: var(--accent-secondary-dim); }
+  .bg-base {
+    background-color: var(--bg-base);
+  }
+  .bg-surface {
+    background-color: var(--bg-surface);
+  }
+  .bg-elevated {
+    background-color: var(--bg-elevated);
+  }
+  .bg-accent-dim {
+    background-color: var(--accent-primary-dim);
+  }
+  .bg-accent-secondary-dim {
+    background-color: var(--accent-secondary-dim);
+  }
 
   /* Borders */
-  .border-default  { border-color: var(--border-default); }
-  .border-subtle   { border-color: var(--border-subtle); }
+  .border-default {
+    border-color: var(--border-default);
+  }
+  .border-subtle {
+    border-color: var(--border-subtle);
+  }
 }

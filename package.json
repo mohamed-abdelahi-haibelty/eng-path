@@ -12,7 +12,9 @@
     "synthesize:dialogues": "tsx --env-file=.env.local scripts/curriculum-generator/synthesize-dialogues.ts"
   },
   "dependencies": {
+    "@auth/core": "^0.37.0",
     "@base-ui/react": "^1.4.1",
+    "@convex-dev/auth": "^0.0.92",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "convex": "^1.38.0",
@@ -29,7 +31,7 @@
   "devDependencies": {
     "@google-cloud/text-to-speech": "^6.4.1",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.19.41",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

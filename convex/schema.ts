@@ -1,18 +1,26 @@
 import { defineSchema, defineTable } from "convex/server";
+import { authTables } from "@convex-dev/auth/server";
 import { v } from "convex/values";
 
 export default defineSchema({
+  ...authTables,
+
   // ─── USERS ────────────────────────────────────────────────────────────────
+  // Extends authTables.users with app-specific fields.
   users: defineTable({
-    tokenIdentifier: v.string(),
-    githubId: v.string(),
+    // Required by @convex-dev/auth:
+    name: v.optional(v.string()),
+    image: v.optional(v.string()),
     email: v.optional(v.string()),
-    name: v.string(),
-    avatarUrl: v.optional(v.string()),
-    createdAt: v.number(),
+    emailVerificationTime: v.optional(v.number()),
+    phone: v.optional(v.string()),
+    phoneVerificationTime: v.optional(v.number()),
+    isAnonymous: v.optional(v.boolean()),
+    // App-specific:
+    createdAt: v.optional(v.number()),
   })
-    .index("by_github_id", ["githubId"])
-    .index("by_token", ["tokenIdentifier"]),
+    .index("email", ["email"])
+    .index("phone", ["phone"]),
 
   // ─── CURRICULUM ───────────────────────────────────────────────────────────
 
