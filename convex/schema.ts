@@ -354,6 +354,8 @@ export default defineSchema({
 
   /**
    * Speaking submissions — one row per full speaking session (10 questions).
+   * Each response is scored on 4 criteria (fluency, coherence, vocabulary,
+   * grammar), each 0–5, totalling 20 per response.
    */
   speakingSubmissions: defineTable({
     userId: v.id("users"),
@@ -364,8 +366,18 @@ export default defineSchema({
         question: v.string(),
         audioStorageId: v.id("_storage"),
         transcript: v.optional(v.string()),
-        score: v.optional(v.number()),
+        wordCount: v.optional(v.number()), // from pre-LLM word count gate
+        scores: v.optional(
+          v.object({
+            fluency: v.number(), // 0–5
+            coherence: v.number(), // 0–5
+            vocabulary: v.number(), // 0–5
+            grammar: v.number(), // 0–5
+          })
+        ),
+        totalScore: v.optional(v.number()), // sum of 4 criteria, 0–20
         feedback: v.optional(v.string()),
+        suggestion: v.optional(v.string()), // null when fluency score is 0
         evaluationStatus: v.union(
           v.literal("pending"),
           v.literal("done"),
@@ -373,7 +385,7 @@ export default defineSchema({
         ),
       })
     ),
-    overallScore: v.optional(v.number()),
+    overallScore: v.optional(v.number()), // average totalScore across responses
     overallEvaluationStatus: v.union(
       v.literal("pending"),
       v.literal("done"),
