@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import { useQuery } from "convex/react";
-import { useAuthActions } from "@convex-dev/auth/react";
 import { api } from "@/convex/_generated/api";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { AppHeader } from "@/components/app-header";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
-import { LogOut, ChevronRight, Zap } from "lucide-react";
+import { ChevronRight, Zap } from "lucide-react";
 
 const LEVEL_DEFS = [
   {
@@ -103,7 +102,6 @@ function LevelCard({
 
 export default function HomePage() {
   const data = useQuery(api.queries.home.homeData);
-  const { signOut } = useAuthActions();
 
   const isLoading = data === undefined;
   const user = data?.user;
@@ -115,43 +113,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-10 bg-card border-b border-border">
-        <div className="max-w-3xl mx-auto px-6 h-12 flex items-center justify-end">
-          <div className="flex items-center gap-2.5">
-            {isLoading ? (
-              <>
-                <Skeleton className="h-4 w-20 hidden sm:block" />
-                <Skeleton className="h-6 w-6 rounded-full" />
-              </>
-            ) : (
-              <>
-                {firstName && (
-                  <span className="hidden sm:block text-sm text-muted-foreground">
-                    {firstName}
-                  </span>
-                )}
-                <Avatar className="h-6 w-6">
-                  {user?.image && (
-                    <AvatarImage src={user.image} alt={user.name ?? "User"} />
-                  )}
-                  <AvatarFallback className="text-[0.6875rem] font-bold">
-                    {firstName?.[0] ?? "U"}
-                  </AvatarFallback>
-                </Avatar>
-                <button
-                  type="button"
-                  onClick={() => void signOut()}
-                  className="flex items-center gap-1.5 text-sm px-2.5 py-1 rounded-md transition-colors duration-150 hover:bg-muted text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
-                  aria-label="Sign out"
-                >
-                  <LogOut className="h-3.5 w-3.5" aria-hidden="true" />
-                  <span className="hidden sm:inline">Sign out</span>
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      </header>
+      <AppHeader />
 
       <main className="max-w-3xl mx-auto px-6 py-10 space-y-8">
         <div className="space-y-0.5">

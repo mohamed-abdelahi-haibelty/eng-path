@@ -11,6 +11,8 @@
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
 import type * as queries_home from "../queries/home.js";
+import type * as queries_units from "../queries/units.js";
+import type * as queries_user from "../queries/user.js";
 import type * as seed_clear from "../seed/clear.js";
 import type * as seed_grammar from "../seed/grammar.js";
 import type * as seed_listening from "../seed/listening.js";
@@ -32,6 +34,8 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   http: typeof http;
   "queries/home": typeof queries_home;
+  "queries/units": typeof queries_units;
+  "queries/user": typeof queries_user;
   "seed/clear": typeof seed_clear;
   "seed/grammar": typeof seed_grammar;
   "seed/listening": typeof seed_listening;

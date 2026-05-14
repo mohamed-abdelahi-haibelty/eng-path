@@ -20,18 +20,17 @@ Implement core Convex queries for units, vocabulary, and user progress on top of
 
 - **Home Page** — `app/page.tsx` replaced (component showcase moved out); `convex/queries/home.ts` implements `homeData` query (user info, per-level completion counts, continue-shortcut unit, due flashcard count) using `getAuthUserId(ctx)` from `@convex-dev/auth/server` — `identity.subject` is a raw JWT claim and cannot be used as a Convex `Id`; `app/globals.css` gains `.hover-lift` utility (spring transition, reduced-motion safe); level cards use design system card treatment (thick bottom border, 2×2 responsive grid); live and working end-to-end.
 
+- **Level Page** — `convex/queries/units.ts` exports `unitsByLevel` query (accepts CEFR level, fetches 30 units ordered by `unitNumber`, joins per-unit progress via `by_userId_and_unitId` index, returns `completedModules/totalModules=6` per unit); `app/(learning)/levels/[level]/page.tsx` renders sticky header with Home back-link, level code + name heading, vertical list of 30 unit rows (unit number, topic, progress bar, checkmark on completion), skeleton loading (10 rows), error state, and `notFound()` guard for invalid slugs; `params` unwrapped via `React.use()` (Next.js 15 Promise params). TypeScript clean, no new lint errors.
+
+- **UI Polish Pass** — Fixed font not being applied: `--font-sans` and `--font-mono` in `@theme inline` were circular no-ops; wired to `var(--font-nunito)` and `var(--font-geist-mono)` respectively; body now uses `font-family: var(--font-sans)`. Added `--state-success` and `--state-warning` CSS tokens (light + dark variants) to `globals.css` and exposed as `text-state-success` / `text-state-warning` Tailwind utilities. Replaced hardcoded `text-[#22c55e]` (×2) in level page with `text-state-success`. Replaced off-system `bg-amber-50 hover:bg-amber-100` "next up" highlight with `bg-secondary hover:bg-muted` (system-native warm gray).
+
 ## In Progress
 
-- **Level page** — spec at `context/spec/05-level-page.md`; needs `convex/queries/units.ts` (units by level + per-user progress), then `app/(learning)/levels/[level]/page.tsx` (30-unit list, name + progress, click → unit page); unit page itself is out of scope for this step.
+_(nothing active)_
 
 ## Next Up
 
-1. **Level page** (`app/(learning)/levels/[level]/page.tsx`) — spec `context/spec/05-level-page.md`
-   - Convex query: units by level + per-unit user progress
-   - UI: level name header, 30-unit list (name + progress), each links to `/units/[slug]`
-   - Unit page NOT implemented in this step
-
-2. **Core queries** (remaining)
+1. **Core queries** (remaining)
    - `convex/queries/vocabulary.ts` — list for a unit, single word lookup
    - `convex/queries/progress.ts` — per-user progress and module-unlock gating
 
