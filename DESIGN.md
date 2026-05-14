@@ -2,25 +2,25 @@
 name: Eng Path
 description: A personal English learning platform for TOEFL prep — warm cream canvas, warm orange primary, sage teal accents, Nunito warmth. Notion-calm, content-first.
 colors:
-  background: "oklch(0.973 0.004 80)"      # Notion near-white warm
-  foreground: "oklch(0.27 0.018 80)"               # warm dark brown
-  card: "oklch(1 0 0)"                              # white
-  card-foreground: "oklch(0.27 0.018 80)"
-  primary: "oklch(0.19 0.002 80)"                   # Notion near-black
-  primary-foreground: "oklch(1 0 0)"                # white on black
-  secondary: "oklch(0.935 0.005 80)"        # light warm gray
-  secondary-foreground: "oklch(0.27 0.018 80)"
-  muted: "oklch(0.962 0.003 80)"             # lighter warm
-  muted-foreground: "oklch(0.64 0.006 80)"           # mid warm gray
-  accent: "oklch(0.59 0.18 252)"                    # Notion blue
+  background: "oklch(0.988 0.002 80)"       # #FFFEFC — Notion page bg (warm white)
+  foreground: "oklch(0.2 0.01 80)"          # #1A1A17 — Notion primary text
+  card: "oklch(1 0 0)"                      # #FFFFFF — inline card/block bg
+  card-foreground: "oklch(0.2 0.01 80)"
+  primary: "oklch(0.17 0.008 80)"           # #1F1E1C — Notion near-black action color
+  primary-foreground: "oklch(1 0 0)"
+  secondary: "oklch(0.946 0.004 80)"        # #F1F0EE — Notion hover / subtle bg
+  secondary-foreground: "oklch(0.2 0.01 80)"
+  muted: "oklch(0.962 0.003 80)"            # #F7F6F4 — soft gray-beige surface
+  muted-foreground: "oklch(0.55 0.01 80)"   # #9B9A97 — Notion placeholder text
+  accent: "oklch(0.575 0.19 253)"           # #2383E2 — Notion blue
   accent-foreground: "oklch(1 0 0)"
-  destructive: "oklch(0.577 0.245 27.325)"          # red
+  destructive: "oklch(0.56 0.22 27)"        # #E03E3E — Notion red
   destructive-foreground: "oklch(1 0 0)"
-  border: "oklch(0.924 0.003 80)"                   # subtle warm gray
-  input: "oklch(0.924 0.003 80)"                    # same
-  ring: "oklch(0.59 0.18 252)"                      # Notion blue focus ring
-  state-success: "#22c55e"
-  state-warning: "#f59e0b"
+  border: "oklch(0.9 0.004 80)"             # #E9E8E4 — Notion light divider
+  input: "oklch(0.9 0.004 80)"              # same as border
+  ring: "oklch(0.575 0.19 253)"             # Notion blue focus ring
+  state-success: "oklch(0.716 0.199 145)"
+  state-warning: "oklch(0.769 0.188 75)"
 typography:
   display:
     fontFamily: "Nunito, system-ui, sans-serif"
@@ -118,30 +118,30 @@ Every decision serves the act of learning. No thick borders, no shadows, no colo
 All values live in `globals.css` as OKLCH custom properties. Use CSS variables — never hardcode hex values.
 
 ### Primary Action
-- **Notion Near-Black** (`--primary` / `oklch(0.19 0.002 80)`): The sole CTA color. Primary buttons, active progress fills, and selected states only. Notion's `#191919` — warm near-black, never pure black.
+- **Notion Near-Black** (`--primary` / `oklch(0.17 0.008 80)`): The sole CTA color. Primary buttons, active progress fills, and selected states only. Notion's `#1F1E1C` — warm near-black, never pure black.
 - **Primary Foreground** (`--primary-foreground` / `oklch(1 0 0)`): White text on near-black backgrounds.
 
 ### Accent
-- **Notion Blue** (`--accent` / `oklch(0.59 0.18 252)`): Focus rings, secondary highlights, interactive indicators. Notion's `#2383e2` — calm and precise.
+- **Notion Blue** (`--accent` / `oklch(0.575 0.19 253)`): Focus rings, secondary highlights, interactive indicators. Notion's `#2383E2` — calm and precise.
 - **Accent Foreground** (`--accent-foreground` / `oklch(1 0 0)`): White text on blue backgrounds.
 
 ### Surfaces
-- **Background** (`--background` / `oklch(0.973 0.004 80)`): Page canvas. Notion's near-white warm — `#f7f6f3` equivalent, brown-warm hue.
+- **Background** (`--background` / `oklch(0.988 0.002 80)`): Page canvas. Notion's near-white warm — `#FFFEFC`, brown-warm hue.
 - **Card** (`--card` / `oklch(1 0 0)`): Card and modal surfaces. Pure white against the warm canvas.
-- **Secondary** (`--secondary` / `oklch(0.935 0.005 80)`): Hover fills, tag backgrounds, secondary button backgrounds.
+- **Secondary** (`--secondary` / `oklch(0.946 0.004 80)`): Hover fills, tag backgrounds, secondary button backgrounds.
 - **Muted** (`--muted` / `oklch(0.962 0.003 80)`): Lightest surface tier — input fills, code blocks.
 
 ### Text
-- **Foreground** (`--foreground` / `oklch(0.27 0.018 80)`): All primary text. Warm dark brown — readable, slightly earthy, like Notion's primary text.
-- **Muted Foreground** (`--muted-foreground` / `oklch(0.64 0.006 80)`): Secondary text, metadata, descriptions. Notion's `#9b9a97` equivalent — warm mid-gray.
+- **Foreground** (`--foreground` / `oklch(0.2 0.01 80)`): All primary text. Warm dark brown — readable, slightly earthy, like Notion's primary text.
+- **Muted Foreground** (`--muted-foreground` / `oklch(0.55 0.01 80)`): Secondary text, metadata, descriptions. Notion's `#9B9A97` equivalent — warm mid-gray.
 
 ### Borders
-- **Border / Input** (`--border`, `--input` / `oklch(0.924 0.003 80)`): Subtle warm gray. Defines surfaces without visual weight. Not black — never black.
+- **Border / Input** (`--border`, `--input` / `oklch(0.9 0.004 80)`): Subtle warm gray. Defines surfaces without visual weight. Not black — never black.
 
 ### Semantic
-- **Destructive** (`--destructive` / `oklch(0.577 0.245 27.325)`): Destructive actions, validation errors.
-- **Success** (`#22c55e`): Completion states, correct answers.
-- **Warning** (`#f59e0b`): Caution states, approaching limits.
+- **Destructive** (`--destructive` / `oklch(0.56 0.22 27)`): Destructive actions, validation errors.
+- **Success** (`oklch(0.716 0.199 145)`): Completion states, correct answers.
+- **Warning** (`oklch(0.769 0.188 75)`): Caution states, approaching limits.
 
 ### Dark Mode
 Dark mode preserves warmth. Backgrounds are deep brown-black (`oklch(0.16 0.008 106.5)`), not cold gray. Orange primary brightens slightly. Borders remain subtle warm dark gray (`oklch(0.35 0.01 106.5)`). All semantics stay the same.

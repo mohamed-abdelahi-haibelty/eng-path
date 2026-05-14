@@ -16,56 +16,56 @@ All colors are defined as CSS custom properties in `globals.css` and mapped to T
 
 | Role                   | CSS Variable               | OKLCH value                                      |
 | ---------------------- | -------------------------- | ------------------------------------------------ |
-| Page background        | `--background`             | `oklch(0.973 0.004 80)` — warm cream      |
-| Foreground text        | `--foreground`             | `oklch(0.27 0.018 80)` — warm dark brown         |
+| Page background        | `--background`             | `oklch(0.988 0.002 80)` — #FFFEFC warm white     |
+| Foreground text        | `--foreground`             | `oklch(0.2 0.01 80)` — #1A1A17 warm dark         |
 | Card surface           | `--card`                   | `oklch(1 0 0)` — white                           |
-| Card text              | `--card-foreground`        | `oklch(0.27 0.018 80)`                           |
+| Card text              | `--card-foreground`        | `oklch(0.2 0.01 80)`                             |
 | Popover surface        | `--popover`                | `oklch(1 0 0)` — white                           |
-| Popover text           | `--popover-foreground`     | `oklch(0.27 0.018 80)`                           |
-| Primary action         | `--primary`                | `oklch(0.19 0.002 80)` — Notion near-black       |
+| Popover text           | `--popover-foreground`     | `oklch(0.2 0.01 80)`                             |
+| Primary action         | `--primary`                | `oklch(0.17 0.008 80)` — #1F1E1C Notion near-black |
 | Primary foreground     | `--primary-foreground`     | `oklch(1 0 0)` — white                           |
-| Secondary surface      | `--secondary`              | `oklch(0.935 0.005 80)` — light warm gray|
-| Secondary foreground   | `--secondary-foreground`   | `oklch(0.27 0.018 80)`                           |
-| Muted surface          | `--muted`                  | `oklch(0.962 0.003 80)` — lighter warm    |
-| Muted text             | `--muted-foreground`       | `oklch(0.64 0.006 80)` — mid warm gray            |
-| Accent highlight       | `--accent`                 | `oklch(0.59 0.18 252)` — Notion blue             |
+| Secondary surface      | `--secondary`              | `oklch(0.946 0.004 80)` — #F1F0EE light warm gray |
+| Secondary foreground   | `--secondary-foreground`   | `oklch(0.2 0.01 80)`                             |
+| Muted surface          | `--muted`                  | `oklch(0.962 0.003 80)` — #F7F6F4 soft gray-beige |
+| Muted text             | `--muted-foreground`       | `oklch(0.55 0.01 80)` — #9B9A97 Notion placeholder |
+| Accent highlight       | `--accent`                 | `oklch(0.575 0.19 253)` — #2383E2 Notion blue    |
 | Accent foreground      | `--accent-foreground`      | `oklch(1 0 0)` — white                           |
-| Destructive            | `--destructive`            | `oklch(0.577 0.245 27.325)` — red                |
+| Destructive            | `--destructive`            | `oklch(0.56 0.22 27)` — #E03E3E Notion red       |
 | Destructive foreground | `--destructive-foreground` | `oklch(1 0 0)` — white                           |
-| Border / input outline | `--border`                 | `oklch(0.924 0.003 80)` — subtle warm gray       |
-| Input border           | `--input`                  | `oklch(0.924 0.003 80)` — subtle warm gray       |
-| Focus ring             | `--ring`                   | `oklch(0.59 0.18 252)` — Notion blue             |
+| Border / input outline | `--border`                 | `oklch(0.9 0.004 80)` — #E9E8E4 subtle warm gray |
+| Input border           | `--input`                  | `oklch(0.9 0.004 80)` — #E9E8E4 subtle warm gray |
+| Focus ring             | `--ring`                   | `oklch(0.575 0.19 253)` — Notion blue            |
 
 #### Sidebar (light)
 
 | Role                         | CSS Variable                    | OKLCH value                                       |
 | ---------------------------- | ------------------------------- | ------------------------------------------------- |
-| Sidebar background           | `--sidebar`                     | `oklch(1 0 0)` — white                            |
-| Sidebar text                 | `--sidebar-foreground`          | `oklch(0.27 0.018 80)`                            |
-| Sidebar primary              | `--sidebar-primary`             | `oklch(0.19 0.002 80)` — near-black               |
+| Sidebar background           | `--sidebar`                     | `oklch(0.96 0.004 80)` — #F7F7F5 warm off-white   |
+| Sidebar text                 | `--sidebar-foreground`          | `oklch(0.2 0.01 80)`                              |
+| Sidebar primary              | `--sidebar-primary`             | `oklch(0.17 0.008 80)` — near-black               |
 | Sidebar primary foreground   | `--sidebar-primary-foreground`  | `oklch(1 0 0)` — white                            |
-| Sidebar accent               | `--sidebar-accent`              | `oklch(0.9057 0.0535 47.507)` — light orange tint |
-| Sidebar accent foreground    | `--sidebar-accent-foreground`   | `oklch(0.27 0.018 80)`                            |
-| Sidebar border               | `--sidebar-border`              | `oklch(0.924 0.003 80)` — subtle warm gray        |
-| Sidebar ring                 | `--sidebar-ring`                | `oklch(0.59 0.18 252)` — Notion blue              |
+| Sidebar accent               | `--sidebar-accent`              | `oklch(0.924 0.005 80)` — hover state             |
+| Sidebar accent foreground    | `--sidebar-accent-foreground`   | `oklch(0.2 0.01 80)`                              |
+| Sidebar border               | `--sidebar-border`              | `oklch(0.9 0.004 80)` — subtle warm gray          |
+| Sidebar ring                 | `--sidebar-ring`                | `oklch(0.575 0.19 253)` — Notion blue             |
 
 ### Dark Mode
 
 | Role                   | CSS Variable               | OKLCH value                                         |
 | ---------------------- | -------------------------- | --------------------------------------------------- |
-| Page background        | `--background`             | `oklch(0.16 0.008 106.5)` — deep warm dark          |
-| Foreground text        | `--foreground`             | `oklch(0.95 0.01 106.5)` — near-white warm          |
-| Card surface           | `--card`                   | `oklch(0.21 0.01 106.5)` — slightly elevated dark   |
-| Popover surface        | `--popover`                | `oklch(0.24 0.01 106.5)` — highest elevation        |
-| Primary action         | `--primary`                | `oklch(0.92 0.01 80)` — near-white                  |
-| Primary foreground     | `--primary-foreground`     | `oklch(0.16 0.008 106.5)`                           |
-| Secondary surface      | `--secondary`              | `oklch(0.28 0.012 106.5)` — subtle dark             |
-| Muted surface          | `--muted`                  | `oklch(0.3 0.012 106.5)`                            |
-| Muted text             | `--muted-foreground`       | `oklch(0.65 0.015 106.5)` — mid warm gray           |
-| Accent highlight       | `--accent`                 | `oklch(0.67 0.20 252)` — Notion blue                |
-| Border / input outline | `--border`                 | `oklch(0.35 0.01 106.5)` — subtle dark border       |
-| Input border           | `--input`                  | `oklch(0.32 0.012 106.5)`                           |
-| Focus ring             | `--ring`                   | `oklch(0.67 0.20 252)` — Notion blue                |
+| Page background        | `--background`             | `oklch(0.158 0.006 80)` — #191919 Notion dark       |
+| Foreground text        | `--foreground`             | `oklch(0.93 0.008 80)` — #FFFFFFCF near-white warm  |
+| Card surface           | `--card`                   | `oklch(0.198 0.008 80)` — #202020 block/card bg     |
+| Popover surface        | `--popover`                | `oklch(0.228 0.008 80)` — #252525 dropdown/popover  |
+| Primary action         | `--primary`                | `oklch(0.91 0.008 80)` — off-white dark primary     |
+| Primary foreground     | `--primary-foreground`     | `oklch(0.158 0.006 80)`                             |
+| Secondary surface      | `--secondary`              | `oklch(0.238 0.008 80)` — #2F2F2F hover surface     |
+| Muted surface          | `--muted`                  | `oklch(0.258 0.008 80)` — #373737                   |
+| Muted text             | `--muted-foreground`       | `oklch(0.6 0.01 80)` — #999999 dark placeholder     |
+| Accent highlight       | `--accent`                 | `oklch(0.625 0.19 253)` — Notion blue brightened    |
+| Border / input outline | `--border`                 | `oklch(0.32 0.008 80)` — #373737 dark divider       |
+| Input border           | `--input`                  | `oklch(0.29 0.008 80)`                              |
+| Focus ring             | `--ring`                   | `oklch(0.625 0.19 253)` — Notion blue               |
 
 Tailwind utility names map to these variables via `@theme inline`. Use `bg-background`, `bg-card`, `text-foreground`, `text-muted-foreground`, `border-border`, `bg-primary`, etc.
 

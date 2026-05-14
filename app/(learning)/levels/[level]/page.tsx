@@ -215,7 +215,7 @@ export default function LevelPage({
                 return (
                   <Link
                     key={unit._id}
-                    href={`/units/${unit.slug}`}
+                    href={`/levels/${levelParam}/${unit.slug}`}
                     aria-label={`Unit ${unit.unitNumber}: ${unit.topic}${
                       isDone ? ", completed" : isNextUp ? ", next up" : ""
                     }`}
