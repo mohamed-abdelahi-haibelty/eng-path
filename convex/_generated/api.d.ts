@@ -10,6 +10,7 @@
 
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
+import type * as queries_home from "../queries/home.js";
 import type * as seed_clear from "../seed/clear.js";
 import type * as seed_grammar from "../seed/grammar.js";
 import type * as seed_listening from "../seed/listening.js";
@@ -30,6 +31,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   http: typeof http;
+  "queries/home": typeof queries_home;
   "seed/clear": typeof seed_clear;
   "seed/grammar": typeof seed_grammar;
   "seed/listening": typeof seed_listening;

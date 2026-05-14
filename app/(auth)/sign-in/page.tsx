@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useAuthActions } from "@convex-dev/auth/react";
 
 function GithubIcon({ className }: { className?: string }) {
@@ -10,19 +11,11 @@ function GithubIcon({ className }: { className?: string }) {
   );
 }
 
-function BookIcon({ className }: { className?: string }) {
+function SpinnerIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
-      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
-    </svg>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg className="w-4 h-4 text-primary shrink-0 mt-0.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M2.5 8l4 4 7-8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
+      <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" className="opacity-75" />
     </svg>
   );
 }
@@ -35,69 +28,80 @@ const features = [
 
 export default function SignInPage() {
   const { signIn } = useAuthActions();
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSignIn() {
+    setIsPending(true);
+    setError(null);
+    try {
+      await signIn("github", { redirectTo: "/" });
+    } catch {
+      setError("Something went wrong. Please try again.");
+      setIsPending(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background flex">
-      {/* Left panel — brand side */}
-      <aside className="hidden lg:flex lg:w-[44%] bg-secondary flex-col justify-between p-12 border-r border-border">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-primary border-b-2 border-brand-dark flex items-center justify-center">
-            <BookIcon className="w-4 h-4 text-primary-foreground" />
-          </div>
-          <span className="font-extrabold text-[1rem] text-foreground tracking-tight">Eng Path</span>
-        </div>
-
-        <div className="space-y-8">
-          <div className="space-y-3">
-            <h1 className="text-[2.25rem] font-extrabold text-foreground leading-[1.1] tracking-tight">
-              Your path to<br />TOEFL success.
+      {/* Left panel */}
+      <aside className="hidden lg:flex lg:w-[42%] bg-card flex-col justify-center p-14 border-r border-border">
+        <div className="space-y-6 max-w-xs">
+          <div className="space-y-2">
+            <h1 className="text-2xl font-bold text-foreground leading-snug tracking-tight">
+              Your path to TOEFL success.
             </h1>
-            <p className="text-[0.9375rem] text-muted-foreground leading-relaxed max-w-75">
-              A complete A1–B2 curriculum with AI feedback on writing and speaking. Move at your own pace.
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              A complete A1–B2 curriculum with AI feedback on writing and speaking.
             </p>
           </div>
-
-          <ul className="space-y-3.5">
+          <ul className="space-y-3">
             {features.map((feature) => (
-              <li key={feature} className="flex items-start gap-3">
-                <CheckIcon />
-                <span className="text-sm font-semibold text-secondary-foreground leading-snug">{feature}</span>
+              <li key={feature} className="flex items-start gap-2.5">
+                <span
+                  className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
+                  aria-hidden="true"
+                />
+                <span className="text-sm text-foreground leading-snug">
+                  {feature}
+                </span>
               </li>
             ))}
           </ul>
         </div>
-
-        <p className="text-xs font-semibold text-muted-foreground">
-          Free to use. No credit card required.
-        </p>
       </aside>
 
-      {/* Right panel — auth */}
+      {/* Right panel */}
       <main className="flex-1 flex flex-col items-center justify-center p-8">
-        {/* Mobile logo */}
-        <div className="lg:hidden mb-10 flex flex-col items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-primary border-b-[3px] border-brand-dark flex items-center justify-center">
-            <BookIcon className="w-5 h-5 text-primary-foreground" />
-          </div>
-          <span className="font-extrabold text-lg text-foreground tracking-tight">Eng Path</span>
-        </div>
-
-        <div className="w-full max-w-85 space-y-7">
-          <div className="space-y-1.5">
-            <h2 className="text-2xl font-bold text-foreground tracking-tight">Welcome</h2>
+        <div className="w-full max-w-80 space-y-6">
+          <div className="space-y-1">
+            <h2 className="text-xl font-semibold text-foreground">Sign in</h2>
             <p className="text-sm text-muted-foreground">
-              Sign in with GitHub to start your learning journey.
+              Continue with your GitHub account to get started.
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={() => void signIn("github", { redirectTo: "/" })}
-            className="w-full flex items-center justify-center gap-3 bg-primary hover:bg-brand-dark text-primary-foreground font-bold text-sm px-6 py-3.5 rounded-xl border-b-4 border-brand-dark transition-[background-color,transform,border-bottom-width] duration-100 ease-out active:translate-y-0.75 active:border-b focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 motion-reduce:transition-none motion-reduce:active:translate-y-0 cursor-pointer"
-          >
-            <GithubIcon className="w-5 h-5" />
-            Continue with GitHub
-          </button>
+          <div className="space-y-3">
+            <button
+              type="button"
+              onClick={() => void handleSignIn()}
+              disabled={isPending}
+              className="w-full flex items-center justify-center gap-2.5 bg-primary text-primary-foreground font-semibold text-sm px-4 py-2.5 rounded-lg hover:opacity-90 transition-opacity duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed motion-reduce:transition-none"
+            >
+              {isPending ? (
+                <SpinnerIcon className="w-4 h-4 animate-spin" />
+              ) : (
+                <GithubIcon className="w-4 h-4" />
+              )}
+              {isPending ? "Signing in…" : "Continue with GitHub"}
+            </button>
+
+            {error && (
+              <p className="text-sm text-destructive text-center" role="alert">
+                {error}
+              </p>
+            )}
+          </div>
 
           <p className="text-xs text-muted-foreground text-center leading-relaxed">
             By continuing, you agree to our terms of service and privacy policy.

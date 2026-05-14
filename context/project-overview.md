@@ -126,7 +126,7 @@ Eng Path is a personal English learning platform built for TOEFL preparation. Th
 - Personal vocabulary flashcard system with spaced repetition
 - Progress tracking and analytics dashboard
 - Pre-generated curriculum stored in the database
-- Mobile-responsive web interface with minimalist design
+- Mobile-responsive web interface with a warm neutral design — cream backgrounds, black ink borders, orange primary actions, and sage teal accents. Light and dark modes supported.
 - Persistent storage for user progress, submissions, and flashcard state
 
 ### Out Of Scope

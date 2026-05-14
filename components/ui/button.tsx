@@ -4,33 +4,31 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-xl border-2 border-b-4 bg-clip-padding text-sm font-bold whitespace-nowrap transition-all duration-75 outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-[3px] active:not-aria-[haspopup]:border-b-[1px] disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-lg bg-clip-padding text-sm font-semibold whitespace-nowrap transition-colors duration-150 outline-none select-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-1 disabled:pointer-events-none disabled:opacity-50 aria-invalid:ring-2 aria-invalid:ring-destructive/20 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground border-primary border-b-(--accent-primary-dark) hover:brightness-105",
+          "bg-primary text-primary-foreground hover:opacity-90",
         outline:
-          "border-(--border-default) border-b-(--border-subtle) bg-background text-foreground hover:bg-muted aria-expanded:bg-muted aria-expanded:text-foreground",
+          "border border-border bg-transparent text-foreground hover:bg-muted",
         secondary:
-          "bg-secondary text-secondary-foreground border-secondary border-b-(--accent-secondary-dark) hover:brightness-105",
+          "bg-secondary text-secondary-foreground hover:bg-muted",
         ghost:
-          "border-transparent border-b-transparent hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground active:not-aria-[haspopup]:translate-y-0 active:not-aria-[haspopup]:border-b-transparent",
+          "text-muted-foreground hover:bg-muted hover:text-foreground",
         destructive:
-          "bg-destructive/10 text-destructive border-destructive/20 border-b-destructive/40 hover:bg-destructive/20 focus-visible:ring-destructive/20",
-        link: "border-transparent border-b-transparent text-primary underline-offset-4 hover:underline active:not-aria-[haspopup]:translate-y-0",
+          "bg-destructive text-destructive-foreground hover:opacity-90",
+        link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        default:
-          "h-9 gap-1.5 px-4 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
-        xs: "h-6 gap-1 rounded-lg px-2 text-xs in-data-[slot=button-group]:rounded-xl has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 gap-1 rounded-lg px-3 text-[0.8rem] in-data-[slot=button-group]:rounded-xl has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-11 gap-2 px-6 text-base has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4",
-        icon: "size-9",
-        "icon-xs":
-          "size-6 rounded-lg in-data-[slot=button-group]:rounded-xl [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm": "size-7 rounded-lg in-data-[slot=button-group]:rounded-xl",
-        "icon-lg": "size-11",
+        default: "h-8 gap-1.5 px-3",
+        xs: "h-6 gap-1 rounded-md px-2 text-xs [&_svg:not([class*='size-'])]:size-3",
+        sm: "h-7 gap-1 rounded-md px-2.5 text-[0.8rem] [&_svg:not([class*='size-'])]:size-3.5",
+        lg: "h-10 gap-2 px-5 text-base",
+        icon: "size-8",
+        "icon-xs": "size-6 rounded-md [&_svg:not([class*='size-'])]:size-3",
+        "icon-sm": "size-7 rounded-md [&_svg:not([class*='size-'])]:size-3.5",
+        "icon-lg": "size-10",
       },
     },
     defaultVariants: {

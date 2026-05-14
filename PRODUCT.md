@@ -14,11 +14,13 @@ Eng Path is a personal English learning platform for TOEFL preparation. It deliv
 
 ## Brand Personality
 
-Playful, friendly, motivating.
+Warm, grounded, motivating.
 
-Warm and encouraging without being loud. The interface should feel like a well-designed notebook — inviting you in, celebrating small wins, and staying out of the way while you actually learn. Emotionally: confidence through consistency, not gamification pressure.
+Warm and encouraging without being loud. The interface should feel like a well-designed notebook — cream pages, subtle warm borders, a reliable tool you return to daily. Inviting you in, celebrating small wins, and staying out of the way while you actually learn. Emotionally: confidence through consistency, not gamification pressure.
 
-Reference feel: Notion's calm, readable surfaces with Duolingo's welcoming visual energy. Not Duolingo's streak anxiety — just its warmth and approachability.
+The visual palette reinforces this directly: warm cream backgrounds, subtle warm-gray borders, orange for the moments that matter (primary actions, progress), and sage teal for calm precision (focus rings, accents). Light and dark modes are supported — the dark mode keeps the same warm brown undertone, never going cold.
+
+Reference feel: Notion's calm, readable surfaces. The same quiet confidence, the same content-first clarity. Not Duolingo's streak anxiety — not Anki's utilitarian gray. A focused workspace with warmth baked in.
 
 ## Anti-references
 
