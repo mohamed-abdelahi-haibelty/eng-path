@@ -9,7 +9,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "synthesize:dialogues": "tsx --env-file=.env.local scripts/curriculum-generator/synthesize-dialogues.ts"
+    "synthesize:dialogues": "tsx --env-file=.env.local scripts/curriculum-generator/synthesize-dialogues.ts",
+    "seed": "tsx --env-file=.env.local scripts/seed.ts"
   },
   "dependencies": {
     "@auth/core": "^0.37.0",

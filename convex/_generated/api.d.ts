@@ -10,6 +10,16 @@
 
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
+import type * as seed_clear from "../seed/clear.js";
+import type * as seed_grammar from "../seed/grammar.js";
+import type * as seed_listening from "../seed/listening.js";
+import type * as seed_reading from "../seed/reading.js";
+import type * as seed_review from "../seed/review.js";
+import type * as seed_speaking from "../seed/speaking.js";
+import type * as seed_storage from "../seed/storage.js";
+import type * as seed_units from "../seed/units.js";
+import type * as seed_vocabulary from "../seed/vocabulary.js";
+import type * as seed_writing from "../seed/writing.js";
 
 import type {
   ApiFromModules,
@@ -20,6 +30,16 @@ import type {
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   http: typeof http;
+  "seed/clear": typeof seed_clear;
+  "seed/grammar": typeof seed_grammar;
+  "seed/listening": typeof seed_listening;
+  "seed/reading": typeof seed_reading;
+  "seed/review": typeof seed_review;
+  "seed/speaking": typeof seed_speaking;
+  "seed/storage": typeof seed_storage;
+  "seed/units": typeof seed_units;
+  "seed/vocabulary": typeof seed_vocabulary;
+  "seed/writing": typeof seed_writing;
 }>;
 
 /**

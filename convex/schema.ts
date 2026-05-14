@@ -67,12 +67,13 @@ export default defineSchema({
       v.object({
         type: v.literal("fill_in_the_blank"),
         sentence: v.string(),
+        options: v.optional(v.array(v.string())),
         answer: v.string(),
         explanation: v.string(),
       }),
       v.object({
         type: v.literal("multiple_choice"),
-        sentence: v.string(),
+        sentence: v.optional(v.string()),
         options: v.object({
           a: v.string(),
           b: v.string(),
@@ -85,7 +86,7 @@ export default defineSchema({
       v.object({
         type: v.literal("sentence_transformation"),
         original: v.string(),
-        prompt: v.string(),
+        prompt: v.optional(v.string()),
         answer: v.string(),
         explanation: v.string(),
       }),
@@ -214,7 +215,7 @@ export default defineSchema({
       }),
       v.object({
         type: v.literal("vocabulary_definition"),
-        word: v.string(),
+        word: v.optional(v.string()),
         options: v.array(v.string()),
         correct: v.string(),
         explanation: v.string(),
@@ -228,8 +229,8 @@ export default defineSchema({
       v.object({
         type: v.literal("fill_in_the_blank"),
         sentence: v.string(),
-        options: v.array(v.string()),
-        correct: v.string(),
+        options: v.optional(v.array(v.string())),
+        answer: v.string(),
         explanation: v.string(),
       }),
       v.object({
@@ -255,13 +256,13 @@ export default defineSchema({
       v.object({
         type: v.literal("sentence_transformation"),
         original: v.string(),
-        prompt: v.string(),
+        prompt: v.optional(v.string()),
         answer: v.string(),
         explanation: v.string(),
       }),
       v.object({
         type: v.literal("multiple_choice_grammar"),
-        sentence: v.string(),
+        sentence: v.optional(v.string()),
         options: v.object({
           a: v.string(),
           b: v.string(),
