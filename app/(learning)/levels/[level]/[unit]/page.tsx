@@ -7,7 +7,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import ModuleCard from "@/components/ModuleCard";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, CheckCircle2 } from "lucide-react";
 
 const VALID_LEVELS = ["a1", "a2", "b1", "b2"] as const;
 type LevelParam = typeof VALID_LEVELS[number];
@@ -24,13 +24,13 @@ const LEVEL_META: Record<
 
 function HeaderSkeleton() {
   return (
-    <div className="space-y-4">
-      <Skeleton className="h-6 w-32 rounded" />
-      <Skeleton className="h-10 w-64 rounded" />
-      <div className="space-y-3 pt-4">
-        <Skeleton className="h-4 w-full max-w-md" />
-        <Skeleton className="h-4 w-full max-w-md" />
-        <Skeleton className="h-4 w-full max-w-md" />
+    <div className="space-y-6">
+      <Skeleton className="h-5 w-32 rounded" />
+      <Skeleton className="h-12 w-96 rounded" />
+      <div className="space-y-4 pt-6 border-t border-border">
+        <Skeleton className="h-4 w-full max-w-2xl" />
+        <Skeleton className="h-4 w-full max-w-2xl" />
+        <Skeleton className="h-4 w-full max-w-2xl" />
       </div>
     </div>
   );
@@ -38,14 +38,13 @@ function HeaderSkeleton() {
 
 function ModuleGridSkeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
       {Array.from({ length: 6 }).map((_, i) => (
-        <Skeleton key={i} className="h-24 rounded-xl" />
+        <Skeleton key={i} className="h-20 rounded-lg" />
       ))}
     </div>
   );
 }
-
 
 export default function UnitPage({
   params,
@@ -68,17 +67,17 @@ export default function UnitPage({
   if (data === undefined) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="max-w-3xl mx-auto px-6 sm:px-8 py-8 sm:py-12">
           <Link
             href={`/levels/${levelParam}`}
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
+            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
           >
             <ChevronLeft className="h-4 w-4" />
             Back to {meta.name}
           </Link>
           <HeaderSkeleton />
-          <div className="mt-8">
-            <Skeleton className="h-6 w-40 rounded mb-4" />
+          <div className="mt-12">
+            <Skeleton className="h-6 w-40 rounded mb-6" />
             <ModuleGridSkeleton />
           </div>
         </div>
@@ -92,74 +91,88 @@ export default function UnitPage({
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-3xl mx-auto px-6 sm:px-8 py-8 sm:py-12">
         {/* Back link */}
         <Link
           href={`/levels/${levelParam}`}
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
         >
           <ChevronLeft className="h-4 w-4" />
           Back to {meta.name}
         </Link>
 
-        {/* Unit Header */}
-        <div className="mb-8">
-          <div className="mb-4">
-            <span className="inline-block text-xs font-bold uppercase tracking-wider text-muted-foreground bg-muted px-3 py-1 rounded-md">
-              Unit {data.unitNumber} • {data.level}
-            </span>
-          </div>
+        {/* Unit Header - Notion-style document */}
+        <div className="mb-12">
+          {/* Unit badge */}
+          <span className="inline-block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+            Unit {String(data.unitNumber).padStart(2, "0")} • {data.level}
+          </span>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+          {/* Title */}
+          <h1 className="text-5xl sm:text-6xl font-bold text-foreground mb-8 leading-tight">
             {data.topic}
           </h1>
 
-          <div className="space-y-3 text-sm">
+          {/* Divider */}
+          <div className="border-t border-border mb-8"></div>
+
+          {/* Metadata - clean, readable */}
+          <div className="grid grid-cols-1 gap-6 text-sm">
             <div>
-              <span className="font-semibold text-foreground">
-                Knowledge Focus:
-              </span>{" "}
-              <span className="text-muted-foreground">{data.knowledgeFocus}</span>
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                Knowledge Focus
+              </p>
+              <p className="text-base text-foreground leading-relaxed max-w-2xl">
+                {data.knowledgeFocus}
+              </p>
             </div>
             <div>
-              <span className="font-semibold text-foreground">Grammar Point:</span>{" "}
-              <span className="text-muted-foreground">{data.grammarPoint}</span>
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                Grammar Point
+              </p>
+              <p className="text-base text-foreground leading-relaxed max-w-2xl">
+                {data.grammarPoint}
+              </p>
             </div>
             <div>
-              <span className="font-semibold text-foreground">
-                TOEFL Angle:
-              </span>{" "}
-              <span className="text-muted-foreground">{data.toeflAngle}</span>
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                TOEFL Angle
+              </p>
+              <p className="text-base text-foreground leading-relaxed max-w-2xl">
+                {data.toeflAngle}
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Modules Grid */}
-        <div className="mb-4">
-          <h2 className="text-lg font-semibold text-foreground mb-4">
-            Learning Modules
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {data.modules.map((module) => (
-              <ModuleCard
-                key={module.name}
-                module={module}
-                level={data.level.toLowerCase()}
-                unitSlug={data.slug}
-              />
-            ))}
+        {/* Modules Section */}
+        <div>
+          <div className="mb-8">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-6">
+              Learning Path
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {data.modules.map((module) => (
+                <ModuleCard
+                  key={module.name}
+                  module={module}
+                  level={data.level.toLowerCase()}
+                  unitSlug={data.slug}
+                />
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Unit Completion Status */}
-        {data.unitCompleted && (
-          <div className="mt-8 p-4 bg-muted border border-border rounded-lg">
-            <p className="text-sm font-semibold text-foreground flex items-center">
-              <span className="inline-block w-2 h-2 bg-state-success rounded-full mr-2"></span>
-              Unit completed!
-            </p>
-          </div>
-        )}
+          {/* Completion Status - subtle and integrated */}
+          {data.unitCompleted && (
+            <div className="mt-12 pt-8 border-t border-border flex items-center gap-3">
+              <CheckCircle2 className="h-5 w-5 text-state-success shrink-0" />
+              <p className="text-sm text-foreground font-medium">
+                You have completed this unit
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

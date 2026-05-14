@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Lock } from "lucide-react";
+import { Lock, ChevronRight, CheckCircle2 } from "lucide-react";
 
 interface Module {
   name: string;
@@ -18,7 +18,7 @@ interface ModuleCardProps {
   unitSlug: string;
 }
 
-const MODULE_ICONS: Record<string, string> = {
+const MODULE_ICONS: Record<string, React.ReactNode> = {
   Grammar: "📚",
   Reading: "📖",
   Listening: "🎧",
@@ -46,17 +46,17 @@ export default function ModuleCard({
   if (module.locked) {
     return (
       <div
-        className="p-5 rounded-xl border border-border bg-card opacity-60 cursor-not-allowed"
+        className="px-4 py-3 rounded-lg border border-border bg-card/50 opacity-60 cursor-not-allowed"
         title={module.lockedReason}
       >
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <span className="text-lg">{MODULE_ICONS[module.name]}</span>
-            <h3 className="font-semibold text-foreground">{module.name}</h3>
+        <div className="flex items-start justify-between mb-2">
+          <div className="flex items-center gap-3">
+            <span className="text-base">{MODULE_ICONS[module.name]}</span>
+            <h3 className="font-medium text-sm text-foreground">{module.name}</h3>
           </div>
-          <Lock className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+          <Lock className="w-4 h-4 text-muted-foreground shrink-0" />
         </div>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-muted-foreground leading-snug">
           {module.lockedReason}
         </p>
       </div>
@@ -65,42 +65,28 @@ export default function ModuleCard({
 
   return (
     <Link href={href}>
-      <div className="group p-5 rounded-xl border border-border bg-card hover:bg-muted/50 transition-colors cursor-pointer h-full">
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <span className="text-lg">{MODULE_ICONS[module.name]}</span>
-            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-              {module.name}
-            </h3>
+      <div className="group px-4 py-3 rounded-lg border border-transparent hover:border-border bg-card hover:bg-muted/40 transition-all duration-150 cursor-pointer">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3 flex-1 min-w-0">
+            <span className="text-base shrink-0">{MODULE_ICONS[module.name]}</span>
+            <div className="flex-1 min-w-0">
+              <h3 className="font-medium text-sm text-foreground group-hover:text-primary transition-colors">
+                {module.name}
+              </h3>
+              {scoreDisplay && (
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {scoreDisplay}
+                </p>
+              )}
+            </div>
           </div>
-          {module.completed && (
-            <span className="inline-block w-5 h-5 bg-state-success rounded-full flex items-center justify-center flex-shrink-0">
-              <svg
-                className="w-3 h-3 text-card"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
+
+          {module.completed ? (
+            <CheckCircle2 className="w-4 h-4 text-state-success shrink-0 ml-3" />
+          ) : (
+            <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-3 transition-colors" />
           )}
         </div>
-
-        {scoreDisplay && (
-          <div className="text-sm text-muted-foreground">
-            Score: <span className="font-semibold text-foreground">{scoreDisplay}</span>
-          </div>
-        )}
-
-        {!module.completed && (
-          <div className="text-xs text-muted-foreground mt-2">
-            Start learning →
-          </div>
-        )}
       </div>
     </Link>
   );
