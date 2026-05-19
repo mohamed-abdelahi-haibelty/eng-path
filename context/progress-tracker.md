@@ -6,25 +6,33 @@ Phase 3: Curriculum Seed + Core Queries
 
 ## Current Goal
 
-Implement core Convex queries for units, vocabulary, and user progress on top of the seeded curriculum.
+Implement remaining Convex queries for vocabulary and user progress on top of the seeded curriculum.
 
 ## Completed
 
-- **Design System** — shadcn/ui + all required components; Tailwind v4
+- **Design System** — shadcn/ui + Tailwind v4; shared primitives: `BackLink`, `Eyebrow`, `Button`; skeleton components in `components/skeletons/`; `lib/levels.ts`, `lib/modules.ts`, `lib/errors.ts`; `hooks/use-network-aware-query.ts`.
 
-- **Database Schema** — `convex/schema.ts` with 13 tables (+ `authTables`); discriminated union exercises in `grammarExercises` and `reviewExercises`; status indexes; typed CEFR levels; array-based speaker model.
+- **Database Schema** — `convex/schema.ts` with 13 tables + `authTables`; discriminated union exercises; CEFR-typed levels; array-based speaker model.
 
-- **Authentication** — GitHub OAuth via Convex Auth; `convex/auth.config.ts` (JWT issuer = `CONVEX_SITE_URL`); `proxy.ts` protects all routes except `/sign-in`; `users` table aligned to auth library shape; `npm run build` passes; end-to-end flow verified.
+- **Authentication** — GitHub OAuth via Convex Auth; `proxy.ts` route protection; `convex/auth.config.ts` JWT issuer = `CONVEX_SITE_URL`; always use `getAuthUserId(ctx)` — never cast `identity.subject`.
 
-- **Curriculum Seed** — `scripts/seed.ts` (idempotent, `npm run seed`); `convex/seed/*` mutations for all 9 module tables + vocabulary; slug convention `{level}-unit-{NN}-{kebab-topic}`; audio upload via `generateUploadUrl`; 120 units, ~5040 vocab words; `a2-unit-20-renewable-energy` incomplete in source (warnings only); `speakingSubmissions` schema updated for per-response `scores` (fluency/coherence/vocabulary/grammar 0–5), `totalScore`, `wordCount`, `suggestion`, `overallScore`.
+- **Curriculum Seed** — `npm run seed` (idempotent); 120 units, ~5040 vocab words; slug convention `{level}-unit-{NN}-{kebab-topic}`; `speakingSubmissions` supports per-response scores (fluency/coherence/vocabulary/grammar 0–5).
 
-- **Home Page** — `app/page.tsx` replaced (component showcase moved out); `convex/queries/home.ts` implements `homeData` query (user info, per-level completion counts, continue-shortcut unit, due flashcard count) using `getAuthUserId(ctx)` from `@convex-dev/auth/server` — `identity.subject` is a raw JWT claim and cannot be used as a Convex `Id`; `app/globals.css` gains `.hover-lift` utility (spring transition, reduced-motion safe); level cards use design system card treatment (thick bottom border, 2×2 responsive grid); live and working end-to-end.
+- **Home Page** — `convex/queries/home.ts` (`homeData` query: user info, per-level completion, continue-shortcut unit, due flashcard count); level cards in a 2×2 responsive grid.
 
-- **Level Page** — `convex/queries/units.ts` exports `unitsByLevel` query (accepts CEFR level, fetches 30 units ordered by `unitNumber`, joins per-unit progress via `by_userId_and_unitId` index, returns `completedModules/totalModules=6` per unit); `app/(learning)/levels/[level]/page.tsx` renders sticky header with Home back-link, level code + name heading, vertical list of 30 unit rows (unit number, topic, progress bar, checkmark on completion), skeleton loading (10 rows), error state, and `notFound()` guard for invalid slugs; `params` unwrapped via `React.use()` (Next.js 15 Promise params). TypeScript clean, no new lint errors.
+- **Level Page** — `convex/queries/units.ts` (`unitsByLevel`: 30 units ordered by number, joins per-unit progress, returns `completedModules/totalModules=6`); sticky header, unit rows with progress bars, skeleton + error states.
 
-- **Unit Page** — `convex/queries/unit.ts` exports `unitBySlug` query (accepts CEFR level and slug, fetches unit + per-unit progress, computes module lock states based on completion + grammar score ≥70% gate, returns module list with name/score/lock reason); `app/(learning)/levels/[level]/[unit]/page.tsx` is a client component using `useQuery`, renders sticky back-link, unit header with topic/knowledge focus/grammar point/TOEFL angle, 3-col responsive module grid (1 col mobile, 2 col tablet, 3 col desktop), per-module cards with icon/score/lock state, skeleton loading, completion badge; `components/ModuleCard.tsx` renders individual modules as clickable cards (or disabled if locked), shows score and lock reason on hover, green checkmark on completion, no module pages yet (route prepared but not implemented); responsive grid tested at multiple viewports, no TypeScript/lint errors.
+- **Unit Page** — `convex/queries/unit.ts` (`unitBySlug`: unit + progress, module lock states, grammar score ≥70% gate); 3-col responsive module grid; `components/ModuleCard.tsx`.
 
-- **UI Polish Pass** — Fixed font not being applied: `--font-sans` and `--font-mono` in `@theme inline` were circular no-ops; wired to `var(--font-nunito)` and `var(--font-geist-mono)` respectively; body now uses `font-family: var(--font-sans)`. Added `--state-success` and `--state-warning` CSS tokens (light + dark variants) to `globals.css` and exposed as `text-state-success` / `text-state-warning` Tailwind utilities. Replaced hardcoded `text-[#22c55e]` (×2) in level page with `text-state-success`. Replaced off-system `bg-amber-50 hover:bg-amber-100` "next up" highlight with `bg-secondary hover:bg-muted` (system-native warm gray).
+- **Grammar Page** — `convex/queries/grammar.ts` + `convex/mutations/grammar.ts` (`submitGrammarScore`, upserts `unitProgress`, gates on score ≥70%); Notion-style client page with Markdown explanation, 20 exercises (5 types), single submit, per-question feedback, score badge, Try Again reset; on pass the CTA navigates directly to the Reading module (`/reading`) instead of back to the unit.
+
+- **Global Error Handling** — `lib/errors.ts`: `ErrorCode`, `AppError`, `AppException` (extends `ConvexError`), `normalizeError`; `lib/fetch.ts`: `safeFetch` with 10s timeout; `hooks/use-action.ts`; UI components `ErrorMessage` + `ErrorBanner`; `app/error.tsx` + `app/not-found.tsx`; all pages and Convex functions wired to the convention.
+
+- **Design System Extraction** — Removed ~120 lines of duplication; all pages now share `BackLink`, `Eyebrow`, `Button`, `useNetworkAwareQuery`, `getLevelMeta`; stale `UnitPageSkeleton.tsx` deleted.
+
+- **Reading Page** — `convex/queries/reading.ts` (`readingBySlug`); `convex/queries/vocabulary.ts` (`vocabularyByUnit`, internal `_untranslatedByUnit`); `convex/mutations/reading.ts` (`submitReadingScore` ≥60% gate, `addToFlashcards` upsert, internal `storeArabicTranslationsBatch`); `convex/actions/vocabulary.ts` (`prefetchUnitTranslations` — fires on grammar page mount via `useEffect`, skips if all words already translated, sends one batched Langbly Translate v2 request for all untranslated words, stores via `storeArabicTranslationsBatch`; `actions/reading.ts` deleted — no per-word fallback); schema: `arabicTranslation?: string` on `vocabulary`; `FlashCard` renders translation directly from DB prop — no API call on flip; client page at `app/(learning)/levels/[level]/[unit]/reading/page.tsx` — vocab carousel with CSS flip animation, react-markdown passage, 5-question MCQ with per-answer feedback; `components/skeletons/reading-skeleton.tsx`.
+
+- **Listening Page** — `convex/queries/listening.ts` (`listeningBySlug`: returns unit, questions only (no dialogue/transcript), `ctx.storage.getUrl(audioStorageId)` for temp audio URL, progress including `listeningListensUsed`); `convex/mutations/listening.ts` (`submitListeningScore` ≥60% gate upserts `unitProgress`; `recordListen` increments `listeningListensUsed` max 2, idempotent at max); client page at `app/(learning)/levels/[level]/[unit]/listening/page.tsx` — two sequential phases: Phase 1 (audio player with pulsing orb button); Phase 2 (5-question MCQ, reuses `QuestionCard` from reading, same submit/score/retry pattern, pass ≥60% CTA navigates to unit); `_components/AudioOrb.tsx` — 160px warm-gray circle, CSS keyframe expanding rings + breathe animation in playing state, RotateCcw in completed state, dimmed Headphones in exhausted state, timer `0:23 / 1:45` format + 1px progress track below orb during playback; orb tracks local listen count starting from `initialListensUsed`, calls `onComplete` on each `audio.ended` event; `components/skeletons/listening-skeleton.tsx` (includes header placeholder to prevent layout shift); orb keyframes live in `globals.css` (`.orb-breathe` / `.orb-pulse` with `prefers-reduced-motion` support).
 
 ## In Progress
 
@@ -32,21 +40,13 @@ _(nothing active)_
 
 ## Next Up
 
-1. **Core queries** (remaining)
-   - `convex/queries/vocabulary.ts` — list for a unit, single word lookup
-   - `convex/queries/progress.ts` — per-user progress and module-unlock gating
-
-3. **Speaking evaluation** (`convex/speaking/evaluate.ts`)
-   - Pre-LLM gate: < 10 words → all zeros
-   - Fluency cap: < 25 words → fluency ≤ 2 after LLM scoring
-   - Groq API (llama-3.3-70b-versatile, temp 0.1, JSON only)
-   - Zod validation, 1 retry on failure, error-state fallback
-   - Persists `scores`, `totalScore`, `feedback`, `suggestion`, `wordCount` per response
+1. **Writing Page** — AI evaluation via Groq; `writingSubmissions` with feedback status polling.
+3. **Speaking evaluation** — `convex/speaking/evaluate.ts`: Groq API (llama-3.3-70b-versatile, temp 0.1, JSON), pre-LLM gates (< 10 words → zeros, < 25 words → fluency ≤ 2), Zod validation, 1 retry, persists scores + feedback.
+4. **Core queries** — `convex/queries/progress.ts` (per-user progress + unlock gating).
 
 ## Architecture Decisions
 
 - `globals.css` uses `@theme inline` (Tailwind v4).
-- `DialogTrigger` / `TooltipTrigger` use `render` prop, not `asChild` — they're `@base-ui/react`, not Radix.
-- `Button` also uses `render` prop for rendering as a link (e.g. `render={<Link href="..." />}`).
+- `DialogTrigger` / `TooltipTrigger` / `Button` use `render` prop (`@base-ui/react`, not Radix).
 - Do not modify files in `components/ui/` — generated by shadcn CLI.
-- Use `getAuthUserId(ctx)` from `"@convex-dev/auth/server"` to get the authenticated `Id<"users">` in Convex queries and mutations. Do NOT cast `identity.subject` — it is a raw JWT claim, not the Convex `_id`.
+- Use `getAuthUserId(ctx)` from `"@convex-dev/auth/server"` for the authenticated `Id<"users">`. Never cast `identity.subject`.
