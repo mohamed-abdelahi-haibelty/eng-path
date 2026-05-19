@@ -1,74 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { AppHeader } from "@/components/app-header";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { LevelCardSkeleton } from "@/components/skeletons/level-card-skeleton";
+import { LEVEL_LIST, type LevelMeta } from "@/lib/levels";
 import { ChevronRight, Zap } from "lucide-react";
 
-const LEVEL_DEFS = [
-  {
-    code: "A1",
-    name: "Beginner",
-    description:
-      "Build a foundation with everyday vocabulary, simple sentence structures, and basic conversational patterns.",
-    href: "/levels/a1",
-  },
-  {
-    code: "A2",
-    name: "Elementary",
-    description:
-      "Expand into routine topics, past and future tenses, and short connected texts on familiar subjects.",
-    href: "/levels/a2",
-  },
-  {
-    code: "B1",
-    name: "Intermediate",
-    description:
-      "Express opinions, handle most situations you might encounter while travelling, and write coherent texts.",
-    href: "/levels/b1",
-  },
-  {
-    code: "B2",
-    name: "Upper-Intermediate",
-    description:
-      "Engage with complex texts, argue a position fluently, and demonstrate the proficiency TOEFL requires.",
-    href: "/levels/b2",
-  },
-] as const;
-
-function LevelCardSkeleton() {
-  return (
-    <div className="bg-card rounded-xl p-5 flex flex-col gap-4 border border-border">
-      <div className="flex items-center justify-between">
-        <Skeleton className="h-3 w-8 rounded" />
-        <Skeleton className="h-3 w-10" />
-      </div>
-      <div className="space-y-1.5">
-        <Skeleton className="h-4 w-28" />
-        <Skeleton className="h-3.5 w-full" />
-        <Skeleton className="h-3.5 w-4/5" />
-      </div>
-      <Skeleton className="h-1 w-full rounded-full" />
-    </div>
-  );
-}
-
 function LevelCard({
-  code,
-  name,
-  description,
-  href,
+  meta,
   completedUnits,
   totalUnits,
 }: {
-  code: string;
-  name: string;
-  description: string;
-  href: string;
+  meta: LevelMeta;
   completedUnits: number;
   totalUnits: number;
 }) {
@@ -76,22 +26,20 @@ function LevelCard({
     totalUnits > 0 ? Math.round((completedUnits / totalUnits) * 100) : 0;
 
   return (
-    <Link href={href} className="group block rounded-xl">
+    <Link href={meta.href} className="group block rounded-xl">
       <article className="bg-card rounded-xl p-5 flex flex-col gap-4 border border-border group-hover:bg-muted/50 transition-colors duration-150 motion-reduce:transition-none">
         <div className="flex items-center justify-between">
-          <span className="text-[0.6875rem] font-bold uppercase tracking-widest text-muted-foreground">
-            {code}
-          </span>
+          <Eyebrow>{meta.cefrCode}</Eyebrow>
           <span className="text-[0.75rem] tabular-nums text-muted-foreground">
             {completedUnits}/{totalUnits}
           </span>
         </div>
         <div className="flex-1 space-y-1">
           <h2 className="text-base font-semibold text-foreground leading-snug">
-            {name}
+            {meta.name}
           </h2>
           <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
-            {description}
+            {meta.description}
           </p>
         </div>
         <Progress value={progress} className="h-1" />
@@ -102,6 +50,8 @@ function LevelCard({
 
 export default function HomePage() {
   const data = useQuery(api.queries.home.homeData);
+
+  if (data === null) notFound();
 
   const isLoading = data === undefined;
   const user = data?.user;
@@ -139,9 +89,7 @@ export default function HomePage() {
         {!isLoading && data?.continueUnit && (
           <div className="rounded-lg px-4 py-3 flex items-center justify-between gap-4 border border-border">
             <div className="min-w-0">
-              <p className="text-[0.6875rem] font-semibold uppercase tracking-wider text-muted-foreground">
-                Continue
-              </p>
+              <Eyebrow as="p" size="sm">Continue</Eyebrow>
               <p className="text-sm font-medium text-foreground truncate mt-0.5">
                 {data.continueUnit.level} · Unit {data.continueUnit.unitNumber}
                 <span className="text-muted-foreground font-normal">
@@ -151,6 +99,7 @@ export default function HomePage() {
             </div>
             <Button
               render={<Link href={`/units/${data.continueUnit.slug}`} />}
+              nativeButton={false}
               size="sm"
               className="shrink-0"
             >
@@ -169,18 +118,15 @@ export default function HomePage() {
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {isLoading
-              ? LEVEL_DEFS.map((l) => <LevelCardSkeleton key={l.code} />)
-              : LEVEL_DEFS.map((levelDef) => {
+              ? LEVEL_LIST.map((l) => <LevelCardSkeleton key={l.param} />)
+              : LEVEL_LIST.map((meta) => {
                   const stats = data?.levels?.find(
-                    (l) => l.level === levelDef.code,
+                    (l) => l.level === meta.cefrCode,
                   );
                   return (
                     <LevelCard
-                      key={levelDef.code}
-                      code={levelDef.code}
-                      name={levelDef.name}
-                      description={levelDef.description}
-                      href={levelDef.href}
+                      key={meta.param}
+                      meta={meta}
                       completedUnits={stats?.completedUnits ?? 0}
                       totalUnits={stats?.totalUnits ?? 30}
                     />
@@ -193,7 +139,7 @@ export default function HomePage() {
           <div className="rounded-lg px-4 py-3 flex items-center justify-between gap-4 border border-border">
             <div className="flex items-center gap-2">
               <Zap
-                className="h-3.5 w-3.5 shrink-0 text-primary"
+                className="h-3.5 w-3.5 shrink-0 text-state-warning"
                 aria-hidden="true"
               />
               <p className="text-sm text-foreground">
@@ -208,6 +154,7 @@ export default function HomePage() {
             </div>
             <Button
               render={<Link href="/flashcards" />}
+              nativeButton={false}
               variant="secondary"
               size="sm"
               className="shrink-0"

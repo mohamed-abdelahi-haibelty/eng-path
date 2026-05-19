@@ -1,93 +1,93 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
-import { Lock, ChevronRight, CheckCircle2 } from "lucide-react";
+import {
+  Lock,
+  ChevronRight,
+  Check,
+  BookOpen,
+  FileText,
+  Headphones,
+  PenLine,
+  Mic2,
+  RotateCcw,
+  type LucideIcon,
+} from "lucide-react";
+import type { UnitModule } from "@/lib/modules";
 
-interface Module {
-  name: string;
-  completed: boolean;
-  score?: number;
-  locked: boolean;
-  lockedReason?: string;
-}
+const ICONS: Record<string, LucideIcon> = {
+  Grammar: BookOpen,
+  Reading: FileText,
+  Listening: Headphones,
+  Writing: PenLine,
+  Speaking: Mic2,
+  Review: RotateCcw,
+};
 
 interface ModuleCardProps {
-  module: Module;
+  module: UnitModule;
   level: string;
   unitSlug: string;
 }
 
-const MODULE_ICONS: Record<string, React.ReactNode> = {
-  Grammar: "📚",
-  Reading: "📖",
-  Listening: "🎧",
-  Writing: "✍️",
-  Speaking: "🎤",
-  Review: "🔄",
-};
-
-export default function ModuleCard({
-  module,
-  level,
-  unitSlug,
-}: ModuleCardProps) {
-  const moduleParam = module.name.toLowerCase();
-  const href = `/levels/${level}/${unitSlug}/${moduleParam}`;
-
-  const getScoreDisplay = () => {
-    if (!module.completed) return null;
-    if (module.score === undefined) return "Completed";
-    return `${Math.round(module.score)}%`;
-  };
-
-  const scoreDisplay = getScoreDisplay();
+export default function ModuleCard({ module, level, unitSlug }: ModuleCardProps) {
+  const Icon = ICONS[module.name] ?? FileText;
+  const href = `/levels/${level}/${unitSlug}/${module.name.toLowerCase()}`;
+  const scoreText =
+    module.completed && module.score !== undefined
+      ? `${Math.round(module.score)}%`
+      : null;
 
   if (module.locked) {
     return (
       <div
-        className="px-4 py-3 rounded-lg border border-border bg-card/50 opacity-60 cursor-not-allowed"
+        className="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-card opacity-50 cursor-not-allowed select-none"
         title={module.lockedReason}
+        aria-disabled="true"
       >
-        <div className="flex items-start justify-between mb-2">
-          <div className="flex items-center gap-3">
-            <span className="text-base">{MODULE_ICONS[module.name]}</span>
-            <h3 className="font-medium text-sm text-foreground">{module.name}</h3>
-          </div>
-          <Lock className="w-4 h-4 text-muted-foreground shrink-0" />
-        </div>
-        <p className="text-xs text-muted-foreground leading-snug">
-          {module.lockedReason}
-        </p>
+        <Icon className="w-4 h-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+        <span className="flex-1 text-sm font-medium text-foreground truncate">
+          {module.name}
+        </span>
+        <Lock className="w-3.5 h-3.5 text-muted-foreground shrink-0" aria-hidden="true" />
       </div>
     );
   }
 
   return (
-    <Link href={href}>
-      <div className="group px-4 py-3 rounded-lg border border-transparent hover:border-border bg-card hover:bg-muted/40 transition-all duration-150 cursor-pointer">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3 flex-1 min-w-0">
-            <span className="text-base shrink-0">{MODULE_ICONS[module.name]}</span>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-medium text-sm text-foreground group-hover:text-primary transition-colors">
-                {module.name}
-              </h3>
-              {scoreDisplay && (
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  {scoreDisplay}
-                </p>
-              )}
-            </div>
-          </div>
+    <Link
+      href={href}
+      className={[
+        "group flex items-center gap-3 px-4 py-3.5 rounded-xl bg-card",
+        "hover:bg-secondary transition-colors duration-150 motion-reduce:transition-none",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+      ].join(" ")}
+    >
+      <Icon
+        className="w-4 h-4 shrink-0 text-muted-foreground group-hover:text-foreground transition-colors duration-150 motion-reduce:transition-none"
+        aria-hidden="true"
+      />
 
-          {module.completed ? (
-            <CheckCircle2 className="w-4 h-4 text-state-success shrink-0 ml-3" />
-          ) : (
-            <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 ml-3 transition-colors" />
-          )}
-        </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-medium text-foreground leading-snug truncate">
+          {module.name}
+        </p>
+        {scoreText && (
+          <p className="text-xs text-muted-foreground mt-0.5">{scoreText}</p>
+        )}
       </div>
+
+      {module.completed ? (
+        <Check
+          className="w-4 h-4 text-muted-foreground shrink-0"
+          aria-hidden="true"
+        />
+      ) : (
+        <ChevronRight
+          className="w-4 h-4 text-muted-foreground group-hover:text-foreground shrink-0 transition-colors duration-150 motion-reduce:transition-none"
+          aria-hidden="true"
+        />
+      )}
     </Link>
   );
 }
