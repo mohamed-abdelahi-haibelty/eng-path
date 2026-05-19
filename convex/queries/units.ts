@@ -6,7 +6,7 @@ const LEVEL_VALIDATOR = v.union(
   v.literal("A1"),
   v.literal("A2"),
   v.literal("B1"),
-  v.literal("B2")
+  v.literal("B2"),
 );
 
 export const unitsByLevel = query({
@@ -25,7 +25,7 @@ export const unitsByLevel = query({
         const progress = await ctx.db
           .query("unitProgress")
           .withIndex("by_userId_and_unitId", (q) =>
-            q.eq("userId", userId).eq("unitId", unit._id)
+            q.eq("userId", userId).eq("unitId", unit._id),
           )
           .unique();
 
@@ -48,7 +48,7 @@ export const unitsByLevel = query({
           completedModules,
           totalModules: 6,
         };
-      })
+      }),
     );
 
     unitsWithProgress.sort((a, b) => a.unitNumber - b.unitNumber);

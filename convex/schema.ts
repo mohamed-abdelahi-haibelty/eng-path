@@ -294,6 +294,7 @@ export default defineSchema({
     audioUrl: v.string(), // Oxford CDN URL
     unitId: v.optional(v.id("units")), // which unit introduced it
     topic: v.optional(v.string()),
+    arabicTranslation: v.optional(v.string()), // populated lazily on first reading page visit
   })
     .index("by_level", ["cefrLevel"])
     .index("by_unit", ["unitId"])

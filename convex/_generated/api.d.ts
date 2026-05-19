@@ -8,12 +8,20 @@
  * @module
  */
 
+import type * as actions_vocabulary from "../actions/vocabulary.js";
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
+import type * as mutations_grammar from "../mutations/grammar.js";
+import type * as mutations_listening from "../mutations/listening.js";
+import type * as mutations_reading from "../mutations/reading.js";
+import type * as queries_grammar from "../queries/grammar.js";
 import type * as queries_home from "../queries/home.js";
+import type * as queries_listening from "../queries/listening.js";
+import type * as queries_reading from "../queries/reading.js";
 import type * as queries_unit from "../queries/unit.js";
 import type * as queries_units from "../queries/units.js";
 import type * as queries_user from "../queries/user.js";
+import type * as queries_vocabulary from "../queries/vocabulary.js";
 import type * as seed_clear from "../seed/clear.js";
 import type * as seed_grammar from "../seed/grammar.js";
 import type * as seed_listening from "../seed/listening.js";
@@ -32,12 +40,20 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  "actions/vocabulary": typeof actions_vocabulary;
   auth: typeof auth;
   http: typeof http;
+  "mutations/grammar": typeof mutations_grammar;
+  "mutations/listening": typeof mutations_listening;
+  "mutations/reading": typeof mutations_reading;
+  "queries/grammar": typeof queries_grammar;
   "queries/home": typeof queries_home;
+  "queries/listening": typeof queries_listening;
+  "queries/reading": typeof queries_reading;
   "queries/unit": typeof queries_unit;
   "queries/units": typeof queries_units;
   "queries/user": typeof queries_user;
+  "queries/vocabulary": typeof queries_vocabulary;
   "seed/clear": typeof seed_clear;
   "seed/grammar": typeof seed_grammar;
   "seed/listening": typeof seed_listening;

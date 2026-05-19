@@ -29,7 +29,7 @@ export const unitBySlug = query({
       .withIndex("by_slug", (q) => q.eq("slug", args.slug))
       .unique();
 
-    if (!unit) return null;
+    if (!unit || unit.level !== args.level) return null;
 
     // Fetch user progress for this unit
     const progress = await ctx.db
