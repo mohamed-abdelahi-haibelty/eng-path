@@ -134,3 +134,4 @@ export const ERROR_TITLES: Record<ErrorCode, string> = {
   EXTERNAL_SERVICE_ERROR: "Service unavailable",
   INTERNAL_ERROR: "Something went wrong",
 };
+
