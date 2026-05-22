@@ -9,7 +9,7 @@ scores the transcript.
 
 This is a Convex action written in TypeScript. It receives a transcript
 string and returns a structured score object. It calls the Groq API
-(Llama 3.3 70B) for evaluation.
+Whisper Large V3 for evaluation.
 
 ## What This Evaluator Actually Has Access To
 
@@ -101,7 +101,7 @@ Measures structural accuracy.
 ## LLM Call Specification
 
 **Provider:** Groq API  
-**Model:** `llama-3.3-70b-versatile`  
+**Model:** `Whisper Large V3`  
 **Temperature:** 0.1 (low — this is scoring, not creative generation)  
 **Response format:** JSON only, no markdown, no explanation outside the object
 

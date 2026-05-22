@@ -10,6 +10,9 @@ interface ErrorMessageProps {
 /**
  * Inline, Notion-calm error callout. Renders nothing when error is null.
  * Always shows a safe, user-facing message — never raw error details in prod.
+ *
+ * Note: error copy stays in English regardless of UI locale; localizing system
+ * error messages costs more than it's worth for this app.
  */
 export function ErrorMessage({ error, className }: ErrorMessageProps) {
   if (!error) return null;

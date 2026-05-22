@@ -8,17 +8,22 @@ const LEVEL_VALIDATOR = v.union(
   v.literal("B1"),
   v.literal("B2"),
 );
+const LANGUAGE = v.union(v.literal("en"), v.literal("fr"));
 
 export const unitsByLevel = query({
-  args: { level: LEVEL_VALIDATOR },
+  args: { level: LEVEL_VALIDATOR, language: LANGUAGE },
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
     if (!userId) return null;
 
     const units = await ctx.db
       .query("units")
-      .withIndex("by_level", (q) => q.eq("level", args.level))
+      .withIndex("by_language_and_level", (q) =>
+        q.eq("language", args.language).eq("level", args.level),
+      )
       .take(30);
+
+    const totalModules = args.language === "fr" ? 8 : 6;
 
     const unitsWithProgress = await Promise.all(
       units.map(async (unit) => {
@@ -32,6 +37,10 @@ export const unitsByLevel = query({
         let completedModules = 0;
         if (progress) {
           if (progress.grammarCompleted) completedModules++;
+          if (args.language === "fr") {
+            if (progress.conjugaisonCompleted) completedModules++;
+            if (progress.orthographeCompleted) completedModules++;
+          }
           if (progress.readingCompleted) completedModules++;
           if (progress.listeningCompleted) completedModules++;
           if (progress.writingCompleted) completedModules++;
@@ -46,7 +55,7 @@ export const unitsByLevel = query({
           topic: unit.topic,
           unitCompleted: progress?.unitCompleted ?? false,
           completedModules,
-          totalModules: 6,
+          totalModules,
         };
       }),
     );

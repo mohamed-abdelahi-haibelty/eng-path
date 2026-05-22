@@ -17,6 +17,13 @@ export const prefetchUnitTranslations = action({
 
     if (untranslated.length === 0) return null;
 
+    // French vocabulary is seeded with Arabic translations baked in.
+    // If any rows lack a translation, leave them — we don't have a
+    // FR->AR cloud translation path configured.
+    if (untranslated.some((w) => (w.language ?? "en") === "fr")) {
+      return null;
+    }
+
     const words = untranslated.map((w) => w.word);
 
     try {

@@ -1,6 +1,8 @@
 import { v } from "convex/values";
 import { mutation } from "../_generated/server";
 
+const languageValidator = v.optional(v.union(v.literal("en"), v.literal("fr")));
+
 const grammarExerciseValidator = v.object({
   id: v.string(),
   instruction: v.string(),
@@ -49,26 +51,31 @@ const grammarExerciseValidator = v.object({
 export const seedGrammarModule = mutation({
   args: {
     unitId: v.id("units"),
+    language: languageValidator,
     explanationMarkdown: v.string(),
     examples: v.array(v.string()),
-    exercises: v.array(grammarExerciseValidator),
+    exercises: v.optional(v.array(grammarExerciseValidator)),
   },
   handler: async (ctx, args) => {
+    const language = args.language ?? "en";
     await ctx.db.insert("grammarModules", {
       unitId: args.unitId,
+      language,
       explanationMarkdown: args.explanationMarkdown,
       examples: args.examples,
     });
 
-    for (const ex of args.exercises) {
+    const exercises = args.exercises ?? [];
+    for (const ex of exercises) {
       await ctx.db.insert("grammarExercises", {
         unitId: args.unitId,
+        language,
         id: ex.id,
         instruction: ex.instruction,
         exercise: ex.exercise,
       });
     }
 
-    return { exerciseCount: args.exercises.length };
+    return { exerciseCount: exercises.length };
   },
 });

@@ -17,12 +17,16 @@ const questionValidator = v.object({
 export const seedReading = mutation({
   args: {
     unitId: v.id("units"),
+    language: v.optional(v.union(v.literal("en"), v.literal("fr"))),
     title: v.string(),
     passage: v.string(),
     wordCount: v.number(),
     questions: v.array(questionValidator),
   },
   handler: async (ctx, args) => {
-    await ctx.db.insert("readingModules", args);
+    await ctx.db.insert("readingModules", {
+      ...args,
+      language: args.language ?? "en",
+    });
   },
 });

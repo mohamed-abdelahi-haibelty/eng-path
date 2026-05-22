@@ -4,6 +4,7 @@ import { mutation } from "../_generated/server";
 export const seedSpeaking = mutation({
   args: {
     unitId: v.id("units"),
+    language: v.optional(v.union(v.literal("en"), v.literal("fr"))),
     questions: v.array(
       v.object({
         order: v.number(),
@@ -15,6 +16,9 @@ export const seedSpeaking = mutation({
     ),
   },
   handler: async (ctx, args) => {
-    await ctx.db.insert("speakingModules", args);
+    await ctx.db.insert("speakingModules", {
+      ...args,
+      language: args.language ?? "en",
+    });
   },
 });

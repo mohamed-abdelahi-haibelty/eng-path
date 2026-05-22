@@ -17,6 +17,7 @@ const questionValidator = v.object({
 export const seedListening = mutation({
   args: {
     unitId: v.id("units"),
+    language: v.optional(v.union(v.literal("en"), v.literal("fr"))),
     title: v.string(),
     speakers: v.array(v.object({ key: v.string(), name: v.string() })),
     dialogue: v.array(
@@ -30,6 +31,9 @@ export const seedListening = mutation({
     questions: v.array(questionValidator),
   },
   handler: async (ctx, args) => {
-    await ctx.db.insert("listeningModules", args);
+    await ctx.db.insert("listeningModules", {
+      ...args,
+      language: args.language ?? "en",
+    });
   },
 });

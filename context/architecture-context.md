@@ -12,7 +12,7 @@
 | File storage      | Convex File Storage        | Audio assets and user speaking recordings                      |
 | Background work   | Convex Actions + Scheduler | Long-running AI evaluation calls and scheduled tasks           |
 | Spaced repetition | ts-fsrs                    | Flashcard scheduling algorithm                                 |
-| AI evaluation     | Groq (Llama 3.3 70B)       | Runtime writing and speaking feedback                          |
+| AI evaluation     | gemini-3.1-pro-preview     | Runtime writing and speaking feedback                          |
 | Speech-to-text    | Groq Whisper Large v3      | Speaking response transcription                                |
 
 All AI providers are cloud-based with free or freemium tiers. No models run locally.

@@ -12,7 +12,7 @@ export const _untranslatedByUnit = internalQuery({
 
     return words
       .filter((w) => !w.arabicTranslation)
-      .map((w) => ({ _id: w._id, word: w.word }));
+      .map((w) => ({ _id: w._id, word: w.word, language: w.language ?? "en" }));
   },
 });
 

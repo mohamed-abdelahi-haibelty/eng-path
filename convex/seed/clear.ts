@@ -1,45 +1,35 @@
 import { v } from "convex/values";
 import { mutation } from "../_generated/server";
 
-const CURRICULUM_TABLES = [
-  "units",
-  "grammarModules",
-  "grammarExercises",
-  "readingModules",
-  "listeningModules",
-  "writingModules",
-  "speakingModules",
-  "reviewExercises",
-  "vocabulary",
-] as const;
+const tableValidator = v.union(
+  v.literal("units"),
+  v.literal("grammarModules"),
+  v.literal("grammarExercises"),
+  v.literal("readingModules"),
+  v.literal("listeningModules"),
+  v.literal("writingModules"),
+  v.literal("speakingModules"),
+  v.literal("reviewExercises"),
+  v.literal("vocabulary"),
+  v.literal("conjugaisonModules"),
+  v.literal("orthographeModules"),
+);
 
-type CurriculumTable = (typeof CURRICULUM_TABLES)[number];
+const languageValidator = v.union(v.literal("en"), v.literal("fr"));
 
+// Full clear — used by the English seed to wipe everything before re-seeding.
 export const clearTableBatch = mutation({
   args: {
-    table: v.union(
-      v.literal("units"),
-      v.literal("grammarModules"),
-      v.literal("grammarExercises"),
-      v.literal("readingModules"),
-      v.literal("listeningModules"),
-      v.literal("writingModules"),
-      v.literal("speakingModules"),
-      v.literal("reviewExercises"),
-      v.literal("vocabulary"),
-    ),
+    table: tableValidator,
     batchSize: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
     const batchSize = args.batchSize ?? 256;
-    const table: CurriculumTable = args.table;
-    const rows = await ctx.db.query(table).take(batchSize);
+    const rows = await ctx.db.query(args.table).take(batchSize);
 
     for (const row of rows) {
-      // Delete the audio file from storage when clearing listening modules.
-      if (table === "listeningModules") {
-        const audioStorageId = (row as { audioStorageId?: string })
-          .audioStorageId;
+      if (args.table === "listeningModules") {
+        const audioStorageId = (row as { audioStorageId?: string }).audioStorageId;
         if (audioStorageId) {
           try {
             await ctx.storage.delete(audioStorageId as never);
@@ -52,5 +42,49 @@ export const clearTableBatch = mutation({
     }
 
     return { deleted: rows.length, hasMore: rows.length === batchSize };
+  },
+});
+
+// Language-scoped clear — used by the French seed to wipe only French rows.
+// Uses a JS-level filter (full scan) since module tables have no language index.
+// Acceptable for an offline seed operation.
+export const clearFrenchBatch = mutation({
+  args: {
+    table: tableValidator,
+    language: languageValidator,
+    batchSize: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const batchSize = args.batchSize ?? 128;
+
+    // conjugaisonModules and orthographeModules are French-only — clear all.
+    const frenchOnlyTables = ["conjugaisonModules", "orthographeModules"] as const;
+    const isFrenchOnly = (frenchOnlyTables as readonly string[]).includes(args.table);
+
+    let rows;
+    if (isFrenchOnly) {
+      rows = await ctx.db.query(args.table).take(batchSize);
+    } else {
+      rows = await ctx.db
+        .query(args.table)
+        .filter((q) => q.eq(q.field("language"), args.language))
+        .take(batchSize);
+    }
+
+    for (const row of rows) {
+      if (args.table === "listeningModules") {
+        const audioStorageId = (row as { audioStorageId?: string }).audioStorageId;
+        if (audioStorageId) {
+          try {
+            await ctx.storage.delete(audioStorageId as never);
+          } catch {
+            // ignore
+          }
+        }
+      }
+      await ctx.db.delete(row._id);
+    }
+
+    return { deleted: rows.length, hasMore: rows.length > 0 };
   },
 });

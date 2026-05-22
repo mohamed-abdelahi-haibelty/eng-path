@@ -10,17 +10,21 @@
     "start": "next start",
     "lint": "eslint",
     "synthesize:dialogues": "tsx --env-file=.env.local scripts/curriculum-generator/synthesize-dialogues.ts",
-    "seed": "tsx --env-file=.env.local scripts/seed.ts"
+    "seed": "tsx --env-file=.env.local scripts/seed.ts",
+    "seed:fr": "tsx --env-file=.env.local scripts/seed-french.ts"
   },
   "dependencies": {
     "@auth/core": "^0.37.0",
     "@base-ui/react": "^1.4.1",
     "@convex-dev/auth": "^0.0.92",
+    "@google/genai": "^2.4.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "convex": "^1.38.0",
+    "groq-sdk": "^1.2.0",
     "lucide-react": "^1.14.0",
     "next": "16.2.4",
+    "next-intl": "^4.12.0",
     "next-themes": "^0.4.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -30,6 +34,7 @@
     "shadcn": "^4.7.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.6.0",
+    "ts-fsrs": "^5.4.0",
     "tw-animate-css": "^1.4.0"
   },
   "devDependencies": {

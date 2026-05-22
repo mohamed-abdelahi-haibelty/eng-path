@@ -50,6 +50,7 @@ export const submitGrammarScore = mutation({
       await ctx.db.insert("unitProgress", {
         userId,
         unitId: args.unitId,
+        language: unit.language,
         grammarCompleted: completed,
         grammarScore: args.score,
         readingCompleted: false,

@@ -6,16 +6,29 @@ const LEVEL_VALIDATOR = v.union(
   v.literal("A1"),
   v.literal("A2"),
   v.literal("B1"),
-  v.literal("B2")
+  v.literal("B2"),
 );
 
+export type ModuleKey =
+  | "grammar"
+  | "conjugaison"
+  | "orthographe"
+  | "reading"
+  | "listening"
+  | "writing"
+  | "speaking"
+  | "review";
+
 interface Module {
-  name: string;
+  key: ModuleKey;
   completed: boolean;
   score?: number;
   locked: boolean;
   lockedReason?: string;
 }
+
+const PREREQ_SCORE = 70;
+const READING_GATE_SCORE = 60;
 
 export const unitBySlug = query({
   args: { level: LEVEL_VALIDATOR, slug: v.string() },
@@ -23,7 +36,6 @@ export const unitBySlug = query({
     const userId = await getAuthUserId(ctx);
     if (!userId) return null;
 
-    // Fetch the unit by slug
     const unit = await ctx.db
       .query("units")
       .withIndex("by_slug", (q) => q.eq("slug", args.slug))
@@ -31,70 +43,119 @@ export const unitBySlug = query({
 
     if (!unit || unit.level !== args.level) return null;
 
-    // Fetch user progress for this unit
+    const language = unit.language ?? "en";
+
     const progress = await ctx.db
       .query("unitProgress")
       .withIndex("by_userId_and_unitId", (q) =>
-        q.eq("userId", userId).eq("unitId", unit._id)
+        q.eq("userId", userId).eq("unitId", unit._id),
       )
       .unique();
 
-    // Build module list with lock states
-    const modules: Module[] = [
-      {
-        name: "Grammar",
-        completed: progress?.grammarCompleted ?? false,
-        score: progress?.grammarScore,
-        locked: false,
-      },
-      {
-        name: "Reading",
-        completed: progress?.readingCompleted ?? false,
-        score: progress?.readingScore,
-        locked: !progress?.grammarCompleted || (progress?.grammarScore ?? 0) < 70,
-        lockedReason:
-          !progress?.grammarCompleted
-            ? "Complete Grammar first"
-            : "Grammar score must be 70% or higher",
-      },
-      {
-        name: "Listening",
-        completed: progress?.listeningCompleted ?? false,
-        score: progress?.listeningScore,
-        locked: !progress?.readingCompleted,
-        lockedReason: "Complete Reading first",
-      },
-      {
-        name: "Writing",
-        completed: progress?.writingCompleted ?? false,
-        locked: !progress?.listeningCompleted,
-        lockedReason: "Complete Listening first",
-      },
-      {
-        name: "Speaking",
-        completed: progress?.speakingCompleted ?? false,
-        locked: !progress?.writingCompleted,
-        lockedReason: "Complete Writing first",
-      },
-      {
-        name: "Review",
-        completed: progress?.reviewCompleted ?? false,
-        score: progress?.reviewScore,
-        locked: !progress?.speakingCompleted,
-        lockedReason: "Complete Speaking first",
-      },
-    ];
+    const grammarPassed =
+      !!progress?.grammarCompleted &&
+      (progress?.grammarScore ?? 0) >= PREREQ_SCORE;
+    const conjugaisonPassed =
+      !!progress?.conjugaisonCompleted &&
+      (progress?.conjugaisonScore ?? 0) >= PREREQ_SCORE;
+    const orthographePassed =
+      !!progress?.orthographeCompleted &&
+      (progress?.orthographeScore ?? 0) >= PREREQ_SCORE;
 
-    // If speaking is completed, try to fetch the speaking submission for score
+    // Reading prerequisite differs by language.
+    const readingUnlocked =
+      language === "fr"
+        ? orthographePassed
+        : grammarPassed;
+    const readingLockedReason =
+      language === "fr"
+        ? !progress?.orthographeCompleted
+          ? "complete-orthographe"
+          : "orthographe-threshold"
+        : !progress?.grammarCompleted
+          ? "complete-grammar"
+          : "grammar-threshold";
+
+    const modules: Module[] = [];
+
+    modules.push({
+      key: "grammar",
+      completed: progress?.grammarCompleted ?? false,
+      score: progress?.grammarScore,
+      locked: false,
+    });
+
+    if (language === "fr") {
+      modules.push({
+        key: "conjugaison",
+        completed: progress?.conjugaisonCompleted ?? false,
+        score: progress?.conjugaisonScore,
+        locked: !grammarPassed,
+        lockedReason: !progress?.grammarCompleted
+          ? "complete-grammar"
+          : "grammar-threshold",
+      });
+      modules.push({
+        key: "orthographe",
+        completed: progress?.orthographeCompleted ?? false,
+        score: progress?.orthographeScore,
+        locked: !conjugaisonPassed,
+        lockedReason: !progress?.conjugaisonCompleted
+          ? "complete-conjugaison"
+          : "conjugaison-threshold",
+      });
+    }
+
+    modules.push({
+      key: "reading",
+      completed: progress?.readingCompleted ?? false,
+      score: progress?.readingScore,
+      locked: !readingUnlocked,
+      lockedReason: readingLockedReason,
+    });
+
+    modules.push({
+      key: "listening",
+      completed: progress?.listeningCompleted ?? false,
+      score: progress?.listeningScore,
+      locked:
+        !progress?.readingCompleted ||
+        (progress?.readingScore ?? 0) < READING_GATE_SCORE,
+      lockedReason: "complete-reading",
+    });
+
+    modules.push({
+      key: "writing",
+      completed: progress?.writingCompleted ?? false,
+      locked: !progress?.listeningCompleted,
+      lockedReason: "complete-listening",
+    });
+
+    modules.push({
+      key: "speaking",
+      completed: progress?.speakingCompleted ?? false,
+      locked: !progress?.writingCompleted,
+      lockedReason: "complete-writing",
+    });
+
+    modules.push({
+      key: "review",
+      completed: progress?.reviewCompleted ?? false,
+      score: progress?.reviewScore,
+      locked: !progress?.speakingCompleted,
+      lockedReason: "complete-speaking",
+    });
+
+    // If speaking is completed, try to fetch the speaking submission for score.
     if (progress?.speakingCompleted) {
       const speakingSubmission = await ctx.db
         .query("speakingSubmissions")
         .withIndex("by_userId_and_unitId", (q) =>
-          q.eq("userId", userId).eq("unitId", unit._id)
+          q.eq("userId", userId).eq("unitId", unit._id),
         )
         .unique();
 
-      const speakingModule = modules.find((m) => m.name === "Speaking");
+      const speakingModule = modules.find((m) => m.key === "speaking");
       if (speakingModule && speakingSubmission?.overallScore) {
         speakingModule.score = speakingSubmission.overallScore;
       }
@@ -102,6 +163,7 @@ export const unitBySlug = query({
 
     return {
       _id: unit._id,
+      language,
       level: unit.level,
       unitNumber: unit.unitNumber,
       slug: unit.slug,

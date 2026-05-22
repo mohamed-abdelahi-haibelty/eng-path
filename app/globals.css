@@ -230,6 +230,7 @@
 
   --font-sans: var(--font-nunito);
   --font-mono: var(--font-geist-mono);
+  --font-handwriting: var(--font-caveat);
 
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);

@@ -1,0 +1,331 @@
+{
+  "locale": {
+    "code": "fr",
+    "name": "Français",
+    "nativeName": "Français",
+    "alt": "English"
+  },
+  "common": {
+    "signOut": "Déconnexion",
+    "back": "Retour",
+    "backTo": "Retour à {target}",
+    "backToUnit": "Retour à l'unité",
+    "backToHome": "Accueil",
+    "next": "Suivant",
+    "submit": "Soumettre",
+    "tryAgain": "Réessayer",
+    "continue": "Continuer",
+    "review": "Réviser",
+    "saving": "Enregistrement…",
+    "hide": "Masquer",
+    "show": "Afficher",
+    "loading": "Chargement…",
+    "of": "sur"
+  },
+  "picker": {
+    "welcomeBack": "Bon retour",
+    "welcomeBackNamed": "Bon retour, {name}.",
+    "tagline": "Choisissez une langue à étudier.",
+    "taglineAlt": "Pick a language to study.",
+    "english": {
+      "name": "English",
+      "tagline": "Build your TOEFL track.",
+      "scope": "4 CEFR levels · 120 units."
+    },
+    "french": {
+      "name": "Français",
+      "tagline": "Préparation DELF/DALF.",
+      "scope": "4 niveaux CECR · 120 unités."
+    },
+    "new": "Nouveau",
+    "lastStudied": "{percent}% · dernière session {when}",
+    "lastStudiedJustNow": "à l'instant",
+    "lastStudiedDaysAgo": "{days, plural, =0 {aujourd'hui} =1 {hier} other {il y a # jours}}"
+  },
+  "dashboard": {
+    "title": "Bon retour.",
+    "titleNamed": "Bon retour, {name}.",
+    "subtitleReady": "Prêt à commencer votre parcours.",
+    "subtitleContinue": "{level} · Unité {unitNumber}",
+    "continue": "Continuer",
+    "continueLabel": "Continuer",
+    "levelsHeading": "Niveaux CECR",
+    "newHere": "Nouveau ici ? Commencez par A1, ou choisissez le niveau qui vous correspond.",
+    "flashcardsDue": "{count, plural, =1 {# carte} other {# cartes}} à réviser",
+    "flashcardsDueOver": "100+ cartes à réviser",
+    "switchLanguage": "Changer de langue"
+  },
+  "level": {
+    "progress": "Progression",
+    "allComplete": "Tout est terminé",
+    "unitsProgress": "{completed} / {total} unités",
+    "units": "Unités",
+    "completed": "terminé",
+    "nextUp": "à venir",
+    "unitLabel": "Unité {number} : {topic}",
+    "a1": {
+      "name": "Débutant",
+      "description": "Posez les bases avec le vocabulaire quotidien, des structures de phrases simples et les schémas conversationnels essentiels."
+    },
+    "a2": {
+      "name": "Élémentaire",
+      "description": "Étendez-vous aux sujets courants, aux temps passés et futurs, et aux textes courts sur des sujets familiers."
+    },
+    "b1": {
+      "name": "Intermédiaire",
+      "description": "Exprimez des opinions, gérez la plupart des situations en voyage et rédigez des textes cohérents."
+    },
+    "b2": {
+      "name": "Avancé",
+      "description": "Engagez-vous avec des textes complexes, défendez une position avec aisance et démontrez la maîtrise requise au DELF/DALF."
+    }
+  },
+  "unit": {
+    "eyebrow": "Unité {number} · {level}",
+    "complete": "Unité terminée",
+    "about": "À propos de cette unité",
+    "knowledgeFocus": "Thème de connaissance",
+    "grammarPoint": "Point de grammaire",
+    "examAngle": "Angle DELF/DALF",
+    "modules": {
+      "grammar": "Grammaire",
+      "conjugaison": "Conjugaison",
+      "orthographe": "Orthographe",
+      "reading": "Lecture",
+      "listening": "Écoute",
+      "writing": "Expression écrite",
+      "speaking": "Expression orale",
+      "review": "Révision"
+    },
+    "locked": {
+      "completeFirst": "Terminez d'abord {module}",
+      "grammarThreshold": "Le score de grammaire doit être de 70 % ou plus",
+      "conjugaisonThreshold": "Le score de conjugaison doit être de 70 % ou plus",
+      "orthographeThreshold": "Le score d'orthographe doit être de 70 % ou plus"
+    }
+  },
+  "grammar": {
+    "eyebrow": "Unité {number} · {level} · Grammaire",
+    "examples": "Exemples",
+    "practiceExercises": "Exercices",
+    "questionCount": "{count} questions",
+    "checkAnswers": "Vérifier",
+    "retry": "Réessayer",
+    "answered": "{answered} sur {total} répondues",
+    "scoreCorrect": "{correct} / {total} correctes",
+    "passMessage": "Grammaire validée, vous pouvez passer au module suivant.",
+    "failMessage": "Obtenez 70 % ou plus pour débloquer le module suivant.",
+    "nextModule": "Module suivant"
+  },
+  "conjugaison": {
+    "eyebrow": "Unité {number} · {level} · Conjugaison",
+    "verbHeadline": "{verb}",
+    "tenseSubtitle": "{tense}",
+    "conjugationTable": "Conjugaison",
+    "pronoun": "Pronom",
+    "form": "Forme",
+    "irregularNotes": "Formes irrégulières",
+    "examples": "Exemples",
+    "practiceExercises": "Exercices",
+    "questionCount": "{count} questions",
+    "checkAnswers": "Vérifier",
+    "retry": "Réessayer",
+    "answered": "{answered} sur {total} répondues",
+    "scoreCorrect": "{correct} / {total} correctes",
+    "passMessage": "Conjugaison validée, l'Orthographe est ouverte.",
+    "failMessage": "Obtenez 70 % ou plus pour débloquer l'Orthographe.",
+    "nextOrthographe": "Suivant : Orthographe"
+  },
+  "orthographe": {
+    "eyebrow": "Unité {number} · {level} · Orthographe",
+    "examples": "Exemples",
+    "practiceExercises": "Exercices",
+    "questionCount": "{count} questions",
+    "checkAnswers": "Vérifier",
+    "retry": "Réessayer",
+    "answered": "{answered} sur {total} répondues",
+    "scoreCorrect": "{correct} / {total} correctes",
+    "passMessage": "Orthographe validée, la Lecture est ouverte.",
+    "failMessage": "Obtenez 70 % ou plus pour débloquer la Lecture.",
+    "nextReading": "Suivant : Lecture"
+  },
+  "reading": {
+    "eyebrow": "Unité {number} · {level} · Lecture",
+    "vocabularyPreview": "Aperçu du vocabulaire",
+    "passage": "Texte de lecture",
+    "wordCount": "{count} mots",
+    "comprehensionQuestions": "Questions de compréhension",
+    "questionCount": "{count} questions",
+    "submit": "Soumettre",
+    "retry": "Réessayer",
+    "passMessage": "Lecture terminée. L'Écoute est ouverte.",
+    "failMessage": "Obtenez 60 % ou plus pour débloquer l'Écoute.",
+    "nextListening": "Suivant : Écoute",
+    "addToFlashcards": "Ajouter aux cartes",
+    "addedToFlashcards": "Ajouté"
+  },
+  "listening": {
+    "eyebrow": "Unité {number} · {level} · Écoute",
+    "audioDialogue": "Dialogue audio",
+    "twoListens": "Joué une fois à l'examen. Vous avez 2 écoutes ici avant de répondre.",
+    "listensRemaining": "{count, plural, =1 {# écoute restante} other {# écoutes restantes}}",
+    "goToQuestions": "Aller aux questions",
+    "backToAudio": "Retour à l'audio",
+    "completeAtLeastOne": "Écoutez au moins une fois pour continuer",
+    "comprehensionQuestions": "Questions de compréhension",
+    "submit": "Soumettre",
+    "retry": "Réessayer",
+    "passMessage": "Écoute terminée. L'Expression écrite est ouverte.",
+    "failMessage": "Obtenez 60 % ou plus pour débloquer l'Expression écrite.",
+    "nextWriting": "Suivant : Expression écrite"
+  },
+  "writing": {
+    "eyebrow": "Unité {number} · {level} · Expression écrite",
+    "prompt": "Sujet",
+    "suggestedVocabulary": "Vocabulaire suggéré",
+    "minMax": "Min {min} mots · Max {max} mots",
+    "hidePrompt": "Masquer le sujet",
+    "showPrompt": "Afficher le sujet",
+    "writePhase": "Écrire",
+    "feedbackPhase": "Retour",
+    "submit": "Soumettre",
+    "submitting": "Envoi…",
+    "evaluating": "Évaluation de votre texte — quelques instants…",
+    "evaluationError": "Échec de l'évaluation. Veuillez réessayer.",
+    "retry": "Réessayer",
+    "yourResponse": "Votre réponse",
+    "modelAnswer": "Réponse modèle",
+    "strengths": "Points forts",
+    "weaknesses": "Pistes d'amélioration",
+    "rubric": "Détail du barème",
+    "dimensions": {
+      "taskResponse": "Respect du sujet",
+      "coherence": "Cohérence",
+      "vocabulary": "Vocabulaire",
+      "grammar": "Grammaire"
+    },
+    "wordsCount": "{count, plural, =1 {# mot} other {# mots}}",
+    "nextSpeaking": "Suivant : Expression orale",
+    "copy": "Copier",
+    "copied": "Copié"
+  },
+  "speaking": {
+    "eyebrow": "Unité {number} · {level} · Expression orale",
+    "phases": {
+      "instructions": "Instructions",
+      "questions": "Questions",
+      "processing": "Traitement",
+      "results": "Résultats"
+    },
+    "beforeYouBegin": "Avant de commencer",
+    "instructions": {
+      "headphones": "Utilisez un casque si possible — votre micro capte le son des haut-parleurs.",
+      "quiet": "Trouvez un endroit calme sans bruit de fond.",
+      "ten": "Vous répondrez à 10 questions en séquence.",
+      "think": "Vous aurez un temps de réflexion avant chaque enregistrement.",
+      "recordOnce": "Chaque réponse est enregistrée une fois ; parlez clairement et naturellement.",
+      "evaluation": "L'évaluation est automatique ; les résultats apparaissent à la fin."
+    },
+    "begin": "Commencer",
+    "thinkPhase": "Réflexion",
+    "recordPhase": "Enregistrement",
+    "stopEarly": "Arrêter maintenant",
+    "rerecord": "Réenregistrer",
+    "nextQuestion": "Question suivante",
+    "evaluating": "Évaluation de vos réponses",
+    "evaluatedOf": "{done} sur {total} évaluées",
+    "stayOnPage": "Restez sur cette page pendant l'évaluation.",
+    "questionBreakdown": "Détail par question",
+    "transcript": "Transcription",
+    "feedback": "Retour",
+    "suggestion": "Suggestion",
+    "dimensions": {
+      "fluency": "Fluidité",
+      "coherence": "Cohérence",
+      "vocabulary": "Vocabulaire",
+      "grammar": "Grammaire"
+    },
+    "overallScore": "Score global",
+    "nextReview": "Suivant : Révision"
+  },
+  "review": {
+    "eyebrow": "Unité {number} · {level} · Révision",
+    "title": "Révision",
+    "submit": "Soumettre",
+    "retry": "Réessayer",
+    "answeredOf": "{answered} sur {total} répondues",
+    "unitComplete": "Unité terminée",
+    "backToLevel": "Retour aux unités {level}",
+    "true": "Vrai",
+    "false": "Faux"
+  },
+  "flashcards": {
+    "dailyReview": "Révision quotidienne",
+    "again": "Encore",
+    "hard": "Difficile",
+    "good": "Bien",
+    "easy": "Facile",
+    "show": "Afficher",
+    "flip": "Retourner la carte",
+    "noCards": "Aucune carte pour l'instant",
+    "noCardsSubtitle": "Ajoutez du vocabulaire depuis n'importe quelle unité de lecture et il apparaîtra ici.",
+    "browseUnits": "Parcourir les unités",
+    "allCaughtUp": "Tout est à jour pour aujourd'hui",
+    "nextDue": "Prochaine carte due {when}",
+    "sessionComplete": "Session terminée",
+    "cardsReviewed": "{count, plural, =1 {Vous avez révisé # carte} other {Vous avez révisé # cartes}}",
+    "reviewAgain": "Réviser à nouveau",
+    "remaining": "{count, plural, =1 {# carte restante} other {# cartes restantes}}",
+    "progress": "{done} / {total}",
+    "viewStats": "Statistiques",
+    "backToReview": "Retour à la révision",
+    "stats": {
+      "title": "Statistiques",
+      "totalCards": "Cartes au total",
+      "dueToday": "Dues aujourd'hui",
+      "allReviews": "Toutes les révisions",
+      "dayStreak": "Jours consécutifs",
+      "deckBreakdown": "Composition du paquet",
+      "states": {
+        "new": "Nouvelle",
+        "newLabel": "jamais vue",
+        "learning": "Apprentissage",
+        "learningLabel": "court terme",
+        "review": "Révision",
+        "reviewLabel": "long terme",
+        "relearning": "Réapprentissage",
+        "relearningLabel": "après un oubli"
+      },
+      "last90": "90 derniers jours",
+      "less": "Moins",
+      "more": "Plus"
+    }
+  },
+  "errors": {
+    "labels": {
+      "UNAUTHORIZED": "Veuillez vous connecter pour continuer.",
+      "FORBIDDEN": "Vous n'avez pas la permission requise.",
+      "VALIDATION_ERROR": "Vérifiez votre saisie et réessayez.",
+      "NOT_FOUND": "Introuvable.",
+      "CONFLICT": "Cet élément existe déjà.",
+      "PRECONDITION_FAILED": "Conditions requises non remplies.",
+      "NETWORK_ERROR": "Erreur réseau. Vérifiez votre connexion et réessayez.",
+      "DATABASE_ERROR": "Erreur de base de données. Veuillez réessayer.",
+      "EXTERNAL_SERVICE_ERROR": "Un service externe est indisponible. Réessayez plus tard.",
+      "INTERNAL_ERROR": "Une erreur est survenue. Veuillez réessayer."
+    },
+    "titles": {
+      "UNAUTHORIZED": "Connexion requise",
+      "FORBIDDEN": "Accès refusé",
+      "VALIDATION_ERROR": "Vérifiez votre saisie",
+      "NOT_FOUND": "Introuvable",
+      "CONFLICT": "Déjà existant",
+      "PRECONDITION_FAILED": "Conditions non remplies",
+      "NETWORK_ERROR": "Problème de connexion",
+      "DATABASE_ERROR": "Erreur de base de données",
+      "EXTERNAL_SERVICE_ERROR": "Service indisponible",
+      "INTERNAL_ERROR": "Une erreur est survenue"
+    },
+    "couldNotLoad": "Impossible à charger. Vérifiez votre connexion et réessayez."
+  }
+}

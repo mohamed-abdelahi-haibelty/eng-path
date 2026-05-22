@@ -641,6 +641,7 @@ async function main() {
 
   console.log("\n[3/4] Seeding units…");
   const unitInserts = contentEntries.map((entry) => ({
+    language: "en" as const,
     level: entry.level,
     unitNumber: entry.unitNumber,
     slug: entry.slug,
@@ -697,6 +698,7 @@ async function main() {
       }
       await client.mutation(api.seed.grammar.seedGrammarModule, {
         unitId,
+        language: "en",
         explanationMarkdown: grammar.explanation_markdown,
         examples: grammar.examples,
         exercises: grammarExercises.map(transformGrammarExercise),
@@ -707,6 +709,7 @@ async function main() {
     const reading = entry.content.reading;
     await client.mutation(api.seed.reading.seedReading, {
       unitId,
+      language: "en",
       title: reading.title,
       passage: reading.passage,
       wordCount: reading.word_count,
@@ -725,6 +728,7 @@ async function main() {
       const audioStorageId = await uploadAudio(client, audioPath);
       await client.mutation(api.seed.listening.seedListening, {
         unitId,
+        language: "en",
         title: listening.title,
         speakers: speakersObjectToArray(listening.speakers),
         dialogue: listening.dialogue,
@@ -738,6 +742,7 @@ async function main() {
     if (!writing) throw new Error(`Missing writing prompt for ${key}`);
     await client.mutation(api.seed.writing.seedWriting, {
       unitId,
+      language: "en",
       prompt: writing.prompt,
       minWords: writing.min_words,
       maxWords: writing.max_words,
@@ -755,6 +760,7 @@ async function main() {
     if (!speaking) throw new Error(`Missing speaking task for ${key}`);
     await client.mutation(api.seed.speaking.seedSpeaking, {
       unitId,
+      language: "en",
       questions: speaking.questions.map((q) => ({
         order: q.order,
         category: q.category,
@@ -771,6 +777,7 @@ async function main() {
     }
     await client.mutation(api.seed.review.seedReview, {
       unitId,
+      language: "en",
       exercises: reviewExercises.map(transformReviewExercise),
     });
 
@@ -780,6 +787,7 @@ async function main() {
   console.log("\nSeeding vocabulary…");
   // Flatten and tag with unitId
   type VocabInsert = {
+    language: "en";
     word: string;
     cefrLevel: Level;
     partOfSpeech: string;
@@ -803,6 +811,7 @@ async function main() {
         if (!isSupported) clampedAboveB2++;
         const cefrLevel: Level = isSupported ? (w.cefr_level as Level) : "B2";
         allWords.push({
+          language: "en",
           word: w.word,
           cefrLevel,
           partOfSpeech: w.part_of_speech,

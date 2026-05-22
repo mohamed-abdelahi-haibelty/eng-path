@@ -77,12 +77,15 @@ const reviewExerciseValidator = v.object({
 export const seedReview = mutation({
   args: {
     unitId: v.id("units"),
+    language: v.optional(v.union(v.literal("en"), v.literal("fr"))),
     exercises: v.array(reviewExerciseValidator),
   },
   handler: async (ctx, args) => {
+    const language = args.language ?? "en";
     for (const ex of args.exercises) {
       await ctx.db.insert("reviewExercises", {
         unitId: args.unitId,
+        language,
         id: ex.id,
         instruction: ex.instruction,
         exercise: ex.exercise,
