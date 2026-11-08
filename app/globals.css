@@ -1,0 +1,407 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   NOTION DESIGN SYSTEM — Light Mode
+   Notion uses warm off-white backgrounds, near-black text,
+   subtle gray borders, and a clean blue accent (#2383E2).
+   ============================================================ */
+:root {
+  /* Backgrounds */
+  --background: oklch(
+    0.988 0.002 80
+  ); /* #FFFEFC — Notion page bg (warm white) */
+  --foreground: oklch(0.2 0.01 80); /* #1A1A17 — Notion primary text */
+
+  /* Cards / Surfaces */
+  --card: oklch(1 0 0); /* #FFFFFF — inline card/block bg */
+  --card-foreground: oklch(0.2 0.01 80);
+
+  /* Popovers */
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.01 80);
+
+  /* Primary — near-black, Notion's default action color */
+  --primary: oklch(0.17 0.008 80); /* #1F1E1C */
+  --primary-foreground: oklch(1 0 0);
+
+  /* Secondary — Notion hover / subtle bg */
+  --secondary: oklch(0.946 0.004 80); /* #F1F0EE */
+  --secondary-foreground: oklch(0.2 0.01 80);
+
+  /* Muted — soft gray-beige surface */
+  --muted: oklch(0.962 0.003 80); /* #F7F6F4 */
+  --muted-foreground: oklch(
+    0.55 0.01 80
+  ); /* #9B9A97 — Notion placeholder text */
+
+  /* Accent — Notion blue #2383E2 */
+  --accent: oklch(0.575 0.19 253);
+  --accent-foreground: oklch(1 0 0);
+
+  /* Destructive — Notion red */
+  --destructive: oklch(0.56 0.22 27); /* #E03E3E */
+  --destructive-foreground: oklch(1 0 0);
+
+  /* Borders & Inputs — Notion uses very light dividers */
+  --border: oklch(0.9 0.004 80); /* #E9E8E4 */
+  --input: oklch(0.9 0.004 80);
+  --ring: oklch(0.575 0.19 253); /* blue focus ring */
+  --state-success: oklch(0.716 0.199 145);
+  --state-warning: oklch(0.769 0.188 75);
+
+  /* Charts — Notion-palette blues */
+  --chart-1: oklch(0.76 0.1 253);
+  --chart-2: oklch(0.64 0.17 253);
+  --chart-3: oklch(0.575 0.19 253);
+  --chart-4: oklch(0.49 0.19 255);
+  --chart-5: oklch(0.41 0.16 258);
+
+  /* Sidebar — Notion sidebar is slightly warmer/darker than page */
+  --sidebar: oklch(0.96 0.004 80); /* #F7F7F5 */
+  --sidebar-foreground: oklch(0.2 0.01 80);
+  --sidebar-primary: oklch(0.17 0.008 80);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.924 0.005 80); /* hover state */
+  --sidebar-accent-foreground: oklch(0.2 0.01 80);
+  --sidebar-border: oklch(0.9 0.004 80);
+  --sidebar-ring: oklch(0.575 0.19 253);
+
+  /* Semantic aliases */
+  --border-default: oklch(0.9 0.004 80);
+  --border-subtle: oklch(0.924 0.003 80);
+  --accent-primary: var(--primary);
+  --accent-primary-dark: oklch(0.12 0.005 80);
+  --accent-primary-dim: oklch(0.924 0.003 80);
+  --brand-dark: oklch(0.12 0.005 80);
+  --text-primary: var(--foreground);
+  --text-secondary: oklch(0.55 0.01 80); /* #9B9A97 */
+  --text-muted: var(--muted-foreground);
+  --bg-subtle: var(--secondary);
+  --surface: var(--card);
+
+  --radius: 0.375rem; /* Notion uses tighter 6px radius */
+
+  /* Notion has NO box-shadows on most elements */
+  --shadow-2xs: none;
+  --shadow-xs: none;
+  --shadow-sm: 0 1px 2px rgba(15, 15, 15, 0.06);
+  --shadow: 0 2px 4px rgba(15, 15, 15, 0.08);
+  --shadow-md: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px,
+    rgba(15, 15, 15, 0.1) 0px 2px 4px;
+  --shadow-lg: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px,
+    rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.06) 0px 9px 24px;
+  --shadow-xl: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px,
+    rgba(15, 15, 15, 0.1) 0px 5px 10px, rgba(15, 15, 15, 0.06) 0px 15px 40px;
+  --shadow-2xl: rgba(15, 15, 15, 0.15) 0px 0px 0px 1px,
+    rgba(15, 15, 15, 0.15) 0px 8px 16px, rgba(15, 15, 15, 0.08) 0px 20px 60px;
+}
+
+/* ============================================================
+   NOTION DESIGN SYSTEM — Dark Mode
+   Notion dark uses #191919 background, #FFFFFFCF text,
+   warm near-black surfaces, and lightened blue accents.
+   ============================================================ */
+.dark {
+  /* Backgrounds */
+  --background: oklch(0.158 0.006 80); /* #191919 — Notion dark page bg */
+  --foreground: oklch(0.93 0.008 80); /* #FFFFFFCF approx */
+
+  /* Cards / Surfaces */
+  --card: oklch(0.198 0.008 80); /* #202020 — block/card bg */
+  --card-foreground: oklch(0.93 0.008 80);
+
+  /* Popovers */
+  --popover: oklch(0.228 0.008 80); /* #252525 — dropdown/popover */
+  --popover-foreground: oklch(0.93 0.008 80);
+
+  /* Primary — off-white, Notion dark primary */
+  --primary: oklch(0.91 0.008 80); /* #FFFFFFCF */
+  --primary-foreground: oklch(0.158 0.006 80);
+
+  /* Secondary — hover surface dark */
+  --secondary: oklch(0.238 0.008 80); /* #2F2F2F */
+  --secondary-foreground: oklch(0.93 0.008 80);
+
+  /* Muted */
+  --muted: oklch(0.258 0.008 80); /* #373737 */
+  --muted-foreground: oklch(
+    0.6 0.01 80
+  ); /* #999999 — Notion dark placeholder */
+
+  /* Accent — Notion dark uses a lighter, vibrant blue */
+  --accent: oklch(0.625 0.19 253); /* #529CCA brightened for dark bg */
+  --accent-foreground: oklch(0.98 0.003 80);
+
+  /* Destructive */
+  --destructive: oklch(0.62 0.22 27);
+  --destructive-foreground: oklch(0.98 0.003 80);
+
+  /* Borders & Inputs */
+  --border: oklch(0.32 0.008 80); /* #373737 — Notion dark divider */
+  --input: oklch(0.29 0.008 80);
+  --ring: oklch(0.625 0.19 253);
+  --state-success: oklch(0.76 0.18 145);
+  --state-warning: oklch(0.82 0.17 75);
+
+  /* Charts */
+  --chart-1: oklch(0.72 0.12 253);
+  --chart-2: oklch(0.65 0.18 255);
+  --chart-3: oklch(0.58 0.2 257);
+  --chart-4: oklch(0.52 0.19 259);
+  --chart-5: oklch(0.46 0.16 262);
+
+  /* Sidebar */
+  --sidebar: oklch(0.178 0.007 80); /* #1E1E1E — slightly off from page */
+  --sidebar-foreground: oklch(0.93 0.008 80);
+  --sidebar-primary: oklch(0.91 0.008 80);
+  --sidebar-primary-foreground: oklch(0.158 0.006 80);
+  --sidebar-accent: oklch(0.238 0.008 80);
+  --sidebar-accent-foreground: oklch(0.93 0.008 80);
+  --sidebar-border: oklch(0.32 0.008 80);
+  --sidebar-ring: oklch(0.625 0.19 253);
+
+  /* Semantic aliases */
+  --border-default: oklch(0.32 0.008 80);
+  --border-subtle: oklch(0.28 0.007 80);
+  --accent-primary-dark: oklch(0.71 0.15 253);
+  --accent-primary-dim: oklch(0.238 0.04 253);
+  --brand-dark: oklch(0.71 0.15 253);
+  --text-secondary: oklch(0.6 0.01 80);
+  --text-muted: var(--muted-foreground);
+  --bg-subtle: var(--secondary);
+  --surface: var(--card);
+
+  --radius: 0.375rem;
+
+  --shadow-2xs: none;
+  --shadow-xs: none;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  --shadow-md: rgba(0, 0, 0, 0.3) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.2) 0px 2px 4px;
+  --shadow-lg: rgba(0, 0, 0, 0.3) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.2) 0px 3px 6px, rgba(0, 0, 0, 0.15) 0px 9px 24px;
+  --shadow-xl: rgba(0, 0, 0, 0.35) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.25) 0px 5px 10px, rgba(0, 0, 0, 0.15) 0px 15px 40px;
+  --shadow-2xl: rgba(0, 0, 0, 0.4) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px, rgba(0, 0, 0, 0.2) 0px 20px 60px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-state-success: var(--state-success);
+  --color-state-warning: var(--state-warning);
+  --color-brand-dark: var(--brand-dark);
+  --color-surface: var(--surface);
+
+  --font-sans: var(--font-nunito);
+  --font-mono: var(--font-geist-mono);
+  --font-handwriting: var(--font-caveat);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+
+  --shadow-2xs: var(--shadow-2xs);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+}
+
+html,
+body,
+:root {
+  height: 100%;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Notion text color utilities */
+.text-notion-default {
+  color: oklch(0.2 0.01 80);
+}
+.text-notion-gray {
+  color: oklch(0.55 0.008 80);
+}
+.text-notion-brown {
+  color: oklch(0.44 0.06 55);
+}
+.text-notion-orange {
+  color: oklch(0.6 0.15 50);
+}
+.text-notion-yellow {
+  color: oklch(0.65 0.14 90);
+}
+.text-notion-green {
+  color: oklch(0.5 0.13 155);
+}
+.text-notion-blue {
+  color: oklch(0.48 0.15 253);
+}
+.text-notion-purple {
+  color: oklch(0.52 0.16 295);
+}
+.text-notion-pink {
+  color: oklch(0.56 0.16 340);
+}
+.text-notion-red {
+  color: oklch(0.52 0.19 27);
+}
+
+/* Notion background highlight utilities */
+.bg-notion-gray-bg {
+  background-color: oklch(0.935 0.004 80);
+}
+.bg-notion-brown-bg {
+  background-color: oklch(0.94 0.025 60);
+}
+.bg-notion-orange-bg {
+  background-color: oklch(0.95 0.05 65);
+}
+.bg-notion-yellow-bg {
+  background-color: oklch(0.97 0.06 95);
+}
+.bg-notion-green-bg {
+  background-color: oklch(0.94 0.05 155);
+}
+.bg-notion-blue-bg {
+  background-color: oklch(0.94 0.05 253);
+}
+.bg-notion-purple-bg {
+  background-color: oklch(0.94 0.05 295);
+}
+.bg-notion-pink-bg {
+  background-color: oklch(0.95 0.05 340);
+}
+.bg-notion-red-bg {
+  background-color: oklch(0.95 0.05 27);
+}
+
+/* Loader animations */
+@keyframes loader-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes loader-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader-progress {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 70%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes loader-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes loader-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loader-pulse {
+  animation: loader-pulse 2s ease-in-out infinite;
+}
+.loader-spin {
+  animation: loader-spin 1.5s linear infinite;
+}
+.loader-progress {
+  animation: loader-progress 3s ease-in-out infinite;
+}
+.loader-bounce {
+  animation: loader-bounce 1.4s ease-in-out infinite;
+}
+.loader-fade-in {
+  animation: loader-fade-in 0.6s ease-out forwards;
+}
+
+/* AudioOrb animations */
+@keyframes orb-breathe {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.02); }
+}
+@keyframes orb-pulse {
+  0%   { transform: scale(1);    opacity: 0.45; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+.orb-breathe { animation: orb-breathe 2.5s ease-in-out infinite; }
+.orb-pulse   { animation: orb-pulse 2.5s ease-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .orb-breathe,
+  .orb-pulse { animation: none !important; }
+}
