@@ -17,6 +17,7 @@ import type * as auth from "../auth.js";
 import type * as http from "../http.js";
 import type * as lib_prompts_speaking from "../lib/prompts/speaking.js";
 import type * as lib_prompts_writing from "../lib/prompts/writing.js";
+import type * as lib_seedAuth from "../lib/seedAuth.js";
 import type * as mutations_conjugaison from "../mutations/conjugaison.js";
 import type * as mutations_flashcards from "../mutations/flashcards.js";
 import type * as mutations_grammar from "../mutations/grammar.js";
@@ -72,6 +73,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   "lib/prompts/speaking": typeof lib_prompts_speaking;
   "lib/prompts/writing": typeof lib_prompts_writing;
+  "lib/seedAuth": typeof lib_seedAuth;
   "mutations/conjugaison": typeof mutations_conjugaison;
   "mutations/flashcards": typeof mutations_flashcards;
   "mutations/grammar": typeof mutations_grammar;

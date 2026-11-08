@@ -2,6 +2,10 @@
 
 An English and French learning application built with Next.js 16, React 19, TypeScript, and Convex. It combines structured learning modules, AI feedback on writing and speaking, progress tracking, and personal flashcards with FSRS spaced repetition.
 
+## Live demo
+
+[Try Eng Path](https://grasp-lng.vercel.app). Choose **Try the demo** for a separate guest account, or sign in with GitHub. Guest accounts cannot access other learners' progress, submissions, or flashcards. Use fictional practice responses; writing and audio may be processed by external AI providers.
+
 ## Features
 
 - English and French routes and interface translations using `next-intl`.

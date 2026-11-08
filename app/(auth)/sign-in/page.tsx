@@ -26,11 +26,12 @@ export default function SignInPage() {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<AppError | null>(null);
 
-  async function handleSignIn() {
+  async function handleSignIn(provider: "github" | "anonymous" = "github") {
     setIsPending(true);
     setError(null);
     try {
-      await signIn("github", { redirectTo: "/" });
+      await signIn(provider, { redirectTo: "/" });
+      if (provider === "anonymous") window.location.assign("/");
     } catch (err) {
       setError(normalizeError(err));
       setIsPending(false);
@@ -90,11 +91,30 @@ export default function SignInPage() {
               {isPending ? "Signing in…" : "Continue with GitHub"}
             </Button>
 
+            {process.env.NEXT_PUBLIC_DEMO_ACCESS_ENABLED === "true" && (
+              <>
+                <Button
+                  type="button"
+                  size="lg"
+                  variant="outline"
+                  className="w-full"
+                  disabled={isPending}
+                  onClick={() => void handleSignIn("anonymous")}
+                >
+                  Try the demo
+                </Button>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Explore with your own guest account. No GitHub account required.
+                  Guest progress stays in this browser session; use fictional practice responses.
+                </p>
+              </>
+            )}
+
             <ErrorMessage error={error} />
           </div>
 
           <p className="text-xs text-muted-foreground text-center leading-relaxed">
-            By continuing, you agree to our terms of service and privacy policy.
+            Writing and audio responses are processed by AI providers. Avoid submitting personal information.
           </p>
         </div>
       </main>
