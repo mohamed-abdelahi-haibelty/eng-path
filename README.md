@@ -4,7 +4,7 @@ An English and French learning application built with Next.js 16, React 19, Type
 
 ## Live demo
 
-[Try Eng Path](https://grasp-lng.vercel.app). Choose **Try the demo** for a separate guest account, or sign in with GitHub. Guest accounts cannot access other learners' progress, submissions, or flashcards. Use fictional practice responses; writing and audio may be processed by external AI providers.
+[Try Eng Path](https://grasp-lng.vercel.app). Choose **Try the demo** for a separate guest account, or sign in with GitHub. Demo guests can open any unit or module in any order without completing prerequisites. Guest accounts cannot access other learners' progress, submissions, or flashcards. Use fictional practice responses; writing and audio may be processed by external AI providers.
 
 ![Fresh guest learning dashboard](assets/demo.png)
 

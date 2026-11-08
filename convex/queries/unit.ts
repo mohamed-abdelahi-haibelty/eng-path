@@ -1,3 +1,4 @@
+import { demoModuleAccess } from "../lib/demoProgression";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { query } from "../_generated/server";
 import { v } from "convex/values";
@@ -146,6 +147,9 @@ export const unitBySlug = query({
       lockedReason: "complete-speaking",
     });
 
+    const demoEnabled = process.env.DEMO_ACCESS_ENABLED === "true";
+    const user = demoEnabled ? await ctx.db.get(userId) : null;
+
     // If speaking is completed, try to fetch the speaking submission for score.
     if (progress?.speakingCompleted) {
       const speakingSubmission = await ctx.db
@@ -171,7 +175,7 @@ export const unitBySlug = query({
       knowledgeFocus: unit.knowledgeFocus,
       toeflAngle: unit.toeflAngle,
       grammarPoint: unit.grammarPoint,
-      modules,
+      modules: demoModuleAccess(modules, user, demoEnabled),
       unitCompleted: progress?.unitCompleted ?? false,
     };
   },

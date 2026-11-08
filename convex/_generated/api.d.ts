@@ -15,6 +15,7 @@ import type * as actions_vocabulary from "../actions/vocabulary.js";
 import type * as actions_writing from "../actions/writing.js";
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
+import type * as lib_demoProgression from "../lib/demoProgression.js";
 import type * as lib_prompts_speaking from "../lib/prompts/speaking.js";
 import type * as lib_prompts_writing from "../lib/prompts/writing.js";
 import type * as lib_seedAuth from "../lib/seedAuth.js";
@@ -71,6 +72,7 @@ declare const fullApi: ApiFromModules<{
   "actions/writing": typeof actions_writing;
   auth: typeof auth;
   http: typeof http;
+  "lib/demoProgression": typeof lib_demoProgression;
   "lib/prompts/speaking": typeof lib_prompts_speaking;
   "lib/prompts/writing": typeof lib_prompts_writing;
   "lib/seedAuth": typeof lib_seedAuth;
